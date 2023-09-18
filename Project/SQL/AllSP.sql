@@ -23,20 +23,21 @@ BEGIN
 END
 
 
----Email Validation (Email doesn't already exist)
+---Email Validation (Email already exist)
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[EmailValidation]'))
 	DROP PROCEDURE EmailValidation
 
 GO
 	CREATE PROCEDURE EmailValidation
-		@email VARCHAR(50)
+		@email VARCHAR(50),
+		@isUser BIT output
 AS
 BEGIN 
-	DECLARE @isUser BIT = 0;
 	IF EXISTS(SELECT 1 from Users WHERE email = @email)
 		BEGIN
 			SET @isUser = 1
 		END
+	ELSE SET @isUser = 0
 	SELECT @isUser AS isUser
 END
 
@@ -307,8 +308,8 @@ GO
 	CREATE PROCEDURE AddCart
 		@userID INT,
 		@totalCost FLOAT,
-		@generatedDate DATETIME,
-		@PKID int = 0 output
+		@generatedDate DATE,
+		@PKID int output
 AS
 BEGIN 
 	DECLARE @cartID INT;
@@ -328,9 +329,7 @@ BEGIN
         VALUES (@userID, @totalCost, @generatedDate);
 		SET @PKID = @@IDENTITY
 		Select @PKID as PKID
-    END
-
-	
+    END	
 END
 
 

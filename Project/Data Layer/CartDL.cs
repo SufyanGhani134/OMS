@@ -22,6 +22,8 @@ namespace Project.Data_Layer
                     command.Parameters.AddWithValue("@userID", cart.userID);
                     command.Parameters.AddWithValue("@totalCost", cart.totalCost);
                     command.Parameters.AddWithValue("@generatedDate", cart.generatedDate);
+                    command.Parameters.Add("@PKID", SqlDbType.Int, 32);
+                    command.Parameters["@PKID"].Direction = ParameterDirection.Output;
 
                     con.Open();
                     command.ExecuteNonQuery();

@@ -1,6 +1,11 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SignUpPage.aspx.cs" Inherits="Project.SignUpPage" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" ClientIDMode="Static" AutoEventWireup="true" CodeBehind="SignUpPage.aspx.cs" Inherits="Project.SignUpPage" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+
     <div class="container text-light d-flex flex-column align-items-center mt-4">
+        <div class="alert w-75 alert-danger alert-dismissible fade show" role="alert" id="Alert" style="display:none;" >
+            <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+        </div>
         <h1>Sign Up</h1>
         <div class="d-flex w-75 justify-content-between p-3">
             <div class="form-group inputGroup">
@@ -19,7 +24,7 @@
         <div class="d-flex w-75 justify-content-between p-3">
             <div class="form-group inputGroup">
                 <label for="dob">Date Of Birth</label>
-                <asp:TextBox runat="server" type="date" class="form-control" id="dob" placeholder="Date Of Birth">
+                <asp:TextBox  runat="server" type="date" class="form-control" id="dob" placeholder="Date Of Birth">
                     </asp:TextBox>
             </div>
 
@@ -48,9 +53,10 @@
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                 <label class="form-check-label" for="exampleCheck1">Agree with Terms & Conditions</label>
             </div>
-            <asp:Button runat="server" ID="SignUpBtn" type="submit" class="btn btn-primary my-4" 
-                Text="Sign Up" OnClick="SignUpBtn_Click">
+            <asp:Button runat="server" type="button"  ID="SignUpBtn"  Cssclass="btn btn-primary my-4" 
+                Text="Sign Up" OnClientClick="return false" >
             </asp:Button>
         </div>
-    </div>
+     </div>
+    <script src="myScripts/SignUpScript.js"></script>
 </asp:Content>

@@ -136,6 +136,7 @@ BEGIN
 	(
 		cartID INT IDENTITY(1,1) PRIMARY KEY,
 		totalCost FLOAT,
+		GeneratedDate DATE,
 		userID INT,
 		FOREIGN KEY (userID) REFERENCES Users(userID)
 	)

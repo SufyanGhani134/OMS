@@ -17,26 +17,38 @@ namespace Project.Data_Layer
                 string response = "";
                 using (SqlConnection con = new SqlConnection(_connectionString))
                 {
-                    SqlCommand command = new SqlCommand("CreateUser", con);
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@firstName", user.firstName);
-                    command.Parameters.AddWithValue("@lastName", user.lastName);
-                    command.Parameters.AddWithValue("@dob", user.dob);
-                    command.Parameters.AddWithValue("@email", user.Email);
-                    command.Parameters.AddWithValue("@password", user.Password);
-                    command.Parameters.Add("@PKID", SqlDbType.Int, 32);
-                    command.Parameters["@PKID"].Direction = ParameterDirection.Output;
-                    Cart newCart = new Cart();
-                    newCart.userID = Convert.ToInt32(command.Parameters["@PKID"].Value);
-                    newCart.totalCost = 0;
-                    newCart.generatedDate = DateTime.Now;
-                    DL newCartDL = new DL();
-                    newCartDL.AddCart(newCart);
+                    bool isUser = emailValidation(user.Email);
+                    if(!isUser)
+                    {
+                        SqlCommand command = new SqlCommand("CreateUser", con);
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("@firstName", user.firstName);
+                        command.Parameters.AddWithValue("@lastName", user.lastName);
+                        command.Parameters.AddWithValue("@dob", user.dob);
+                        command.Parameters.AddWithValue("@email", user.Email);
+                        command.Parameters.AddWithValue("@password", user.Password);
+                        command.Parameters.Add("@PKID", SqlDbType.Int, 32);
+                        command.Parameters["@PKID"].Direction = ParameterDirection.Output;
 
-                    con.Open();
-                    command.ExecuteNonQuery();
-                    response = Convert.ToString(command.Parameters["@PKID"].Value);
-                    con.Close();
+
+                        con.Open();
+                        command.ExecuteNonQuery();
+                        response = Convert.ToString(command.Parameters["@PKID"].Value);
+                        con.Close();
+
+                        Cart newCart = new Cart();
+                        newCart.userID = Convert.ToInt32(response);
+                        newCart.totalCost = 0;
+                        newCart.generatedDate = DateTime.Now;
+                        DL newCartDL = new DL();
+                        newCartDL.AddCart(newCart);
+                    }
+                    else
+                    {
+                        response = "User Already Exits!";
+                    }
+
+                    
                 }
                 return response;
             }
@@ -47,6 +59,36 @@ namespace Project.Data_Layer
                    + exception.Message, exception.InnerException);
             }
 
+        }
+
+        public bool emailValidation(string email)
+        {
+            try
+            {
+                bool response;
+                using (SqlConnection con = new SqlConnection(_connectionString))
+                {
+
+                    SqlCommand command = new SqlCommand("EmailValidation", con);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@email", email);
+                    command.Parameters.Add("@isUser", SqlDbType.Bit);
+                    command.Parameters["@isUser"].Direction = ParameterDirection.Output;
+
+
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    response = Convert.ToBoolean(command.Parameters["@isUser"].Value);
+                    con.Close();
+                }
+                return response;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in emailValidation in DL due to "
+                   + exception.Message, exception.InnerException);
+            }
         }
 
         public bool UserLogIn(string email, string password)
