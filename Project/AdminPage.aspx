@@ -2,5 +2,5 @@
 <%@ Register Src="~/User Controls/AddMovieUC.ascx" TagPrefix="UC" TagName="MovieForm" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <UC:MovieForm runat="server"></UC:MovieForm>
-
+<script src="myScripts/MovieScript.js"></script>
 </asp:Content>

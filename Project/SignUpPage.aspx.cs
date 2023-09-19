@@ -38,14 +38,7 @@ namespace Project
                    + " is encountered in SignUPPage due to "
                    + exception.Message, exception.InnerException);
             }
-            
-            
-        }
-        
-
-        public void test(string user)
-        {
-            Response.Write($"<script>alert({user})</script>");
+             
         }
         
     }

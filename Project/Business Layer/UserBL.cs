@@ -1,6 +1,9 @@
-﻿using Project.Models;
+﻿using Project.Data_Layer;
+using Project.Models;
+using Project.User_Controls;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -23,17 +26,51 @@ namespace Project.Business_Layer
             }
         }
 
-        public bool UserLogIn(string email, string password)
+        public int UserLogIn(string email, string password)
         {
             try
             {
-                bool response = DL.UserLogIn(email, password);
+                int response = DL.UserLogIn(email, password);
                 return response;
             }
             catch (Exception exception)
             {
                 throw new Exception("An exception of type " + exception.GetType().ToString()
                    + " is encountered in UserLogIn in BL due to "
+                   + exception.Message, exception.InnerException);
+            }
+        }
+
+        public User GetUser(int userID)
+        {
+            try
+            {
+                DataTable userTable = new DataTable();
+                User user = new User();
+                userTable = DL.GetUser(userID);
+                if (userTable != null && userTable.Rows.Count > 0)
+                {
+                    foreach (DataRow dataRow in userTable.Rows)
+                    {
+                        user.firstName = dataRow["firstName"].ToString();
+                        user.lastName = dataRow["lastName"].ToString();
+                        user.dob = Convert.ToDateTime( dataRow["dob"]);
+                        if(Convert.ToInt32(dataRow["roleID"]) == 1)
+                        {
+                            user.Status = "Admin";
+                        }
+                        else
+                        {
+                            user.Status = "Customer";
+                        }
+                    }
+                }
+                return user;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in GetUser in BL due to "
                    + exception.Message, exception.InnerException);
             }
         }

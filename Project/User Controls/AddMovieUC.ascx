@@ -1,9 +1,10 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddMovieUC.ascx.cs" Inherits="Project.User_Controls.AddMovieUC" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddMovieUC.ascx.cs" ClientIDMode="Static" Inherits="Project.User_Controls.AddMovieUC" %>
 <div class="container bg-light d-flex flex-column p-5 rounded-3 mt-3" style="gap:1rem;">
+    <asp:HiddenField runat="server" ID="genre"/>
     <div class="d-flex w-100 justify-content-center">
         <div class="d-flex w-25 align-items-center">
            <label for="fname"><strong>Title :</strong></label>
-           <asp:TextBox runat="server" type="text" class="form-control w-75 mx-2" id="fname" placeholder="Movie Title">
+           <asp:TextBox runat="server" type="text" class="form-control w-75 mx-2" id="movieTitle" placeholder="Movie Title">
            </asp:TextBox>
         </div>
         <div class="d-flex w-25 align-items-center">
@@ -14,22 +15,18 @@
     </div>
     <div class="d-flex justify-content-evenly w-50 align-items-center">
         <label><strong>Resolutions :</strong></label>
-       <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">720p</label>
-       </div>
-        <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck2">
-            <label class="form-check-label" for="exampleCheck1">720p</label>
-       </div>
-        <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck3">
-            <label class="form-check-label" for="exampleCheck1">720p</label>
-       </div>
-        <div class="form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck4">
-            <label class="form-check-label" for="exampleCheck1">720p</label>
-       </div>
+       
+        <%
+          foreach(var items in getResolution())
+            {
+                %>
+                <div class="form-check">
+                    <input type="checkbox" class="form-check-input">
+                    <label class="form-check-label" for="exampleCheck1"><%= items %></label>
+                 </div>
+                <%
+            }
+            %>
     </div>
         
     <div class="d-flex justify-content-evenly w-100"> 
@@ -60,22 +57,21 @@
     <div class="d-flex w-100 justify-content-between">
         <div class="d-flex justify-content-evenly w-50  align-items-center">
             <label><strong>Genres :</strong></label>
-           <div class="form-check">
-                <input type="checkbox" class="form-check-input">
-                <label class="form-check-label" for="exampleCheck1">Genre</label>
-           </div>
             <div class="form-check">
-                <input type="checkbox" class="form-check-input" >
-                <label class="form-check-label" for="exampleCheck1">Genre</label>
-           </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input">
-                <label class="form-check-label" for="exampleCheck1">Genre</label>
-           </div>
-            <div class="form-check">
-                <input type="checkbox" class="form-check-input">
-                <label class="form-check-label" for="exampleCheck1">Genre</label>
-           </div>
+                    <input type="checkbox" class="form-check-input">
+                    <label class="form-check-label" for="exampleCheck1">Genre</label>
+            </div>
+            <% foreach(var item in genre.Value)
+            {
+                    %>
+                <div class="form-check">
+                        <input type="checkbox" class="form-check-input">
+                        <label class="form-check-label" for="exampleCheck1"><%= item %></label>
+                </div>
+            <%
+
+            } %>
+          
         </div>
         <div class="d-flex align-items-center" style="gap:0.5rem;">
             <label>Others: </label>
@@ -100,5 +96,4 @@
                         id="addMovie" Text="Add Movie">
                     </asp:Button>
     </div>
-    
 </div>

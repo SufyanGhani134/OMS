@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-    console.log("Entering");
 
     var currentDate = new Date().toISOString().split("T")[0];
     $("#dob").attr("max", currentDate);
@@ -33,6 +32,7 @@
             }, 1500)
          }
         let user = { firstName, lastName, dob, email, password }
+
         if (isValid) {
             OnSignUp(user);
         }
@@ -45,20 +45,27 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                if (typeof response.d === 'string') {
+                if (response.d === "User Already Exits!") {
                     $("#Alert").css("display", "block");
                     $("#Alert").text(response.d);
+                    setTimeout(() => {
+                        $("#Alert").css("display", "none");
+                    }, 1500)
                 } else {
                     $("#Alert").removeClass("alert-danger");
                     $("#Alert").addClass("alert-success");
                     $("#Alert").css("display", "block");
                     $("#Alert").text("User Sign-Up successfully!");
+                    setTimeout(() => {
+                        $("#logInModal").modal('show');
+                    }, 2000)
                 }
             },
             error: function (error) {
                 $("#Alert").css("display", "block");
                 console.log(error, "this is the error");
                 $("#Alert").addClass("alert-danger").text("An error occurred during sign-up.");
+                
             }
         });
         

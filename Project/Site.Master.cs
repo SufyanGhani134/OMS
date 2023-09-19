@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Project.Business_Layer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Routing;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -34,15 +36,8 @@ namespace Project
                 cart.Visible = true;
             }
         }
-        protected void LoggingBtn_Click(object sender, EventArgs e)
-        {
-            email = Email.Text;
-            password = Password.Text;
-            Response.Write($"<script>console.log('{email.ToString()}', '{password.ToString()}')</script>");
-            logOutBtn.Visible = true;
-            Response.Redirect("UserPage");
-        }
 
+       
         protected void signUpBtn_Click(object sender, EventArgs e)
         {
             Response.Redirect("SignUpPage");
@@ -50,7 +45,8 @@ namespace Project
 
         protected void logOutBtn_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Home");
+            Response.Redirect("/");
         }
+
     }
 }

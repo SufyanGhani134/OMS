@@ -91,23 +91,24 @@ namespace Project.Data_Layer
             }
         }
 
-        public bool UserLogIn(string email, string password)
+        public int UserLogIn(string email, string password)
         {
             try
             {
-                bool response = true;
+                int response;
                 using (SqlConnection con = new SqlConnection(_connectionString))
                 {
                     SqlCommand command = new SqlCommand("UserValidation", con);
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@email", email);
                     command.Parameters.AddWithValue("@password", password);
+                    command.Parameters.Add("@isValidUser", SqlDbType.Int, 32);
                     command.Parameters["@isValidUser"].Direction = ParameterDirection.Output;
 
 
                     con.Open();
                     command.ExecuteNonQuery();
-                    response = (bool)command.Parameters["@isValidUser"].Value;
+                    response = Convert.ToInt32(command.Parameters["@isValidUser"].Value);
                     con.Close();
                 }
                 return response;
@@ -116,6 +117,34 @@ namespace Project.Data_Layer
             {
                 throw new Exception("An exception of type " + exception.GetType().ToString()
                    + " is encountered in UserLogIn in DL due to "
+                   + exception.Message, exception.InnerException);
+            }
+
+        }
+
+        public DataTable GetUser(int userID)
+        {
+            try
+            {
+                DataTable userTable = new DataTable();
+                using (SqlConnection con = new SqlConnection(_connectionString))
+                {
+                    SqlCommand command = new SqlCommand("GetUser", con);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@userID", userID);
+
+                    con.Open();
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter();
+                    dataAdapter.SelectCommand = command;
+                    dataAdapter.Fill(userTable);
+                    con.Close();
+                }
+                return userTable;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in GetUser in DL due to "
                    + exception.Message, exception.InnerException);
             }
 

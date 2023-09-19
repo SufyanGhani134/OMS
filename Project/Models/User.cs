@@ -13,6 +13,7 @@ namespace Project.Models
         public DateTime dob;
         private string email;
         private string password;
+        private string status;
         //public Cart userCart;
 
         public string Email
@@ -25,6 +26,12 @@ namespace Project.Models
         {
             get { return password; }
             set { password = value; }
+        }
+
+        public string Status
+        {
+            get { return status; }
+            set { status = value; }
         }
     }
 }

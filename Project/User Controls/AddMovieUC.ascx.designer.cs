@@ -15,13 +15,22 @@ namespace Project.User_Controls
     {
 
         /// <summary>
-        /// fname control.
+        /// genre control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox fname;
+        protected global::System.Web.UI.WebControls.HiddenField genre;
+
+        /// <summary>
+        /// movieTitle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox movieTitle;
 
         /// <summary>
         /// releaseYear control.

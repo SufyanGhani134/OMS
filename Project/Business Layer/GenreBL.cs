@@ -35,5 +35,30 @@ namespace Project.Business_Layer
                    + exception.Message, exception.InnerException);
             }
         }
+
+        public List<string> GetAllGenres()
+        {
+            try
+            {
+                DataTable genresTable = new DataTable();
+                List<string> genres = new List<string>();
+                genresTable = DL.GetAllGenres();
+                if (genresTable != null && genresTable.Rows.Count > 0)
+                {
+                    foreach (DataRow dataRow in genresTable.Rows)
+                    {
+                        var title = dataRow["title"].ToString();
+                        genres.Add(title);
+                    }
+                }
+                return genres;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in GetAllGenres in BL due to "
+                   + exception.Message, exception.InnerException);
+            }
+        }
     }
 }

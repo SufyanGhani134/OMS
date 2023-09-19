@@ -49,15 +49,17 @@ IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[Use
 GO
 	CREATE PROCEDURE UserValidation
 		@email VARCHAR(50),
-		@password VARCHAR(100)
+		@password VARCHAR(100),
+		@isValidUser BIT output
 AS
 BEGIN 
-	DECLARE @isValidUser BIT = 0;
+	
 	BEGIN
 		IF EXISTS (SELECT 1 FROM Users WHERE email = @email AND password = @password)
 			BEGIN
 				SET @isValidUser = 1;
 			END
+		ELSE SET @isValidUser = 0
 	END
 	SELECT @isValidUser AS isValidUser
 END
