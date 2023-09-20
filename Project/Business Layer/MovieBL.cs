@@ -55,7 +55,7 @@ namespace Project.Business_Layer
                                 Genre genre = new Genre();
                                 genre.title = genreIDRow["title"].ToString();
                                 genre.genreID = Convert.ToInt32(genreIDRow["genreID"]);
-                                movie.genres.Add(genre);
+                                movie.genres.Add(genre.title);
                             }
                         }
                         DL resolutionDL = new DL();
@@ -126,7 +126,7 @@ namespace Project.Business_Layer
                                 Genre genre = new Genre();
                                 genre.title = genreIDRow["title"].ToString();
                                 genre.genreID = Convert.ToInt32(genreIDRow["genreID"]);
-                                movie.genres.Add(genre);
+                                movie.genres.Add(genre.title);
                             }
                         }
                         DL resolutionDL = new DL();

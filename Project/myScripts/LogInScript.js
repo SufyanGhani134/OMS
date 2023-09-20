@@ -1,8 +1,6 @@
 ﻿$(document).ready(function () {
 
     $("#LoggingBtn").click(logIn)
-
-
     function logIn() {
         let email = $("#Email").val();
         let password = $("#Password").val();

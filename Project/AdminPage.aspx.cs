@@ -1,5 +1,7 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Project.Business_Layer;
+using Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,27 +15,50 @@ namespace Project
 {
     public partial class AdminPage : System.Web.UI.Page
     {
+        public string genre;
         protected void Page_Load(object sender, EventArgs e)
         {
         }
 
         [WebMethod]
         [ScriptMethod(UseHttpGet = true)]
-        public static string GetAllGenres()
+        public static List<string> GetAllGenres()
         {
             try
             {
-                BL movieBL = new BL();
-                List<string> genres = movieBL.GetAllGenres();
-                string response = JsonConvert.SerializeObject(genres);
+                BL genreBL = new BL();
+                List<string> response = genreBL.GetAllGenres();
+                //string response = JsonConvert.SerializeObject(genres);
                 return response;
             }
             catch (Exception exception)
             {
                 throw new Exception("An exception of type " + exception.GetType().ToString()
-                   + " is encountered in UserPage due to "
+                   + " is encountered in AdminPage due to "
                    + exception.Message, exception.InnerException);
             }
         }
+
+        [WebMethod]
+        public static string AddMovie(string movie)
+        {
+            JObject Movie = JObject.Parse(movie);
+
+            Movie newMovie = Movie.ToObject<Movie>();
+            try
+            {
+                BL movieBL = new BL();
+                string response = movieBL.AddMovie(newMovie);
+                return response;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in AdminPage due to "
+                   + exception.Message, exception.InnerException);
+            }
+        }
+
+
     }
 }

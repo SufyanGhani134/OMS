@@ -50,19 +50,33 @@ GO
 	CREATE PROCEDURE UserValidation
 		@email VARCHAR(50),
 		@password VARCHAR(100),
-		@isValidUser BIT output
+		@isValidUser INT output
 AS
 BEGIN 
 	
 	BEGIN
 		IF EXISTS (SELECT 1 FROM Users WHERE email = @email AND password = @password)
 			BEGIN
-				SET @isValidUser = 1;
+				SET @isValidUser = (SELECT userID FROM Users WHERE email = @email);
 			END
 		ELSE SET @isValidUser = 0
 	END
 	SELECT @isValidUser AS isValidUser
 END
+
+
+---Get User
+IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[GetUser]'))
+	DROP PROCEDURE GetUser
+
+GO
+	CREATE PROCEDURE GetUser
+		@userID INT
+AS
+BEGIN 
+	SELECT * FROM Users WHERE userID = @userID	
+END
+
 
 ---Add Movie
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[AddMovie]'))
@@ -73,9 +87,9 @@ GO
 		@userID INT,
 		@title VARCHAR(50),
 		@poster NVARCHAR(MAX),
-		@releaseYear DATE,
+		@releaseYear INT,
 		@description VARCHAR(500),
-		@duration TIME,
+		@duration VARCHAR(50),
 		@price FLOAT,
 		@ratings FLOAT,
 		@PKID INT = 0 OUTPUT
@@ -88,6 +102,7 @@ BEGIN
 	SELECT @PKID AS PKID
 END
 
+ execute AddMovie 9, 'A', 'asdf', 23, 'asdfgdgf', '2:3', 5, 4
 
 ----Add Genres in Genres Table
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[AddGenre]'))
@@ -121,6 +136,7 @@ BEGIN
     SELECT G.genreID FROM  Genres G WHERE G.title = @genre
 END
 
+execute AddMovieGenre 'fiction', 1
 
 ---Add To MovieResolution Table
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[AddMovieResolution]'))
@@ -136,6 +152,8 @@ BEGIN
     SELECT R.resolutionID FROM  Resolution R WHERE R.title =@resolution
 END
 
+
+execute AddMovieResolution 1, '720p'
 ---Get All Movies
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[GetAllMovies]'))
 	DROP PROCEDURE GetAllMovies
@@ -181,6 +199,17 @@ GO
 AS
 BEGIN 
 	SELECT * FROM MovieGenre WHERE genreID = @genreID
+END
+
+--Get All Genres
+IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[GetAllGenres]'))
+	DROP PROCEDURE GetAllGenres
+
+GO
+	CREATE PROCEDURE GetAllGenres
+AS
+BEGIN 
+	SELECT title FROM Genres;
 END
 
 ---GetResolutionIDs
@@ -469,3 +498,7 @@ BEGIN
     DROP TABLE #TempGenreID;
     DROP TABLE #TempMovieID;
 END
+
+---Add Admin
+INSERT INTO Users(firstName, lastName, dob, email, password, roleID)
+	VALUES('Sufyan', 'Ghani', '1999-08-17', 'sufyan@admin.com', '0987654321', 1);

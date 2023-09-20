@@ -41,7 +41,12 @@ namespace Project.User_Controls
             return resolutions;
         }
 
+        public List<string> getGenres()
+        {
+            List<string> genres = AdminPage.GetAllGenres();
+            return genres;
+        }
 
-        
+
     }
 }

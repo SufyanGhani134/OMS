@@ -15,8 +15,15 @@ namespace Project
             routes.MapPageRoute("UserHomePageRoute", "UserPage/{id}/Home", "~/UserPage.aspx");
             routes.MapPageRoute("CartPageRoute", "UserPage/Cart", "~/CartPage.aspx");
             routes.MapPageRoute("AdminHomeRoute", "Admin/{id}/Home", "~/AdminPage.aspx");
+            routes.MapPageRoute("AdminRoute", "Admin/{id}", "~/AdminPage.aspx");
+
 
             routes.RouteExistingFiles = false;
+
+            var settings = new FriendlyUrlSettings();
+            settings.AutoRedirectMode = RedirectMode.Off;
+            routes.EnableFriendlyUrls(settings);
+
         }
     }
 }

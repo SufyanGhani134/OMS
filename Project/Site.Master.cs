@@ -34,6 +34,7 @@ namespace Project
                 logInBtn.Visible = false;
                 logOutBtn.Visible = true;
                 cart.Visible = true;
+                signUpBtn.Visible = false;
             }
         }
 

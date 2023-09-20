@@ -14,7 +14,7 @@ namespace Project.Models
         public string title { get; set; }
         public int ReleaseYear { get; set; }
         public string description { get; set; }
-        public List<Genre> genres { get; set; }
+        public List<string> genres { get; set; }
 
         public string duration { get; set; }
 
@@ -27,6 +27,7 @@ namespace Project.Models
         public int UserID
         {
             get { return userID; }
+            set { userID = value; }
         }
 
 

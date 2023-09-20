@@ -10,7 +10,7 @@ namespace Project.Data_Layer
 {
     public partial class DL
     {
-        public void AddGenre(Genre genre)
+        public void AddGenre(string genre)
         {
 
             try
@@ -20,7 +20,7 @@ namespace Project.Data_Layer
                 {
                     SqlCommand command = new SqlCommand("AddGenre", con);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@genre", genre.title);
+                    command.Parameters.AddWithValue("@genre", genre);
                     con.Open();
                     command.ExecuteNonQuery();
                     con.Close();
@@ -91,7 +91,7 @@ namespace Project.Data_Layer
             }
         }
 
-        public void UpdateMovieGenre(int movieID, Genre genre)
+        public void UpdateMovieGenre(int movieID, string genre)
         {
             try
             {
@@ -100,7 +100,7 @@ namespace Project.Data_Layer
                 {
                     SqlCommand command = new SqlCommand("UpdateMovieGenre", con);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@genre", genre.title);
+                    command.Parameters.AddWithValue("@genre", genre);
                     command.Parameters.AddWithValue("@movieID", movieID);
                     con.Open();
                     command.ExecuteNonQuery();

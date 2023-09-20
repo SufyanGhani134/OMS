@@ -1,9 +1,9 @@
 ﻿$(document).ready(function () {
+    console.log("running!")
 
     var currentDate = new Date().toISOString().split("T")[0];
     $("#dob").attr("max", currentDate);
     function validation() {
-
         var isValid = true;
 
         let firstName = $("#fname").val();
@@ -25,10 +25,10 @@
             if (password != confirmPass) { throw "Password donot match!" }
         } catch (error) {
             isValid= false
-            $("#Alert").text(error);
-            $("#Alert").css("display", "block");
+            $("#SignUpAlert").text(error);
+            $("#SignUpAlert").css("display", "block");
             setTimeout(() => {
-                $("#Alert").css("display", "none");
+                $("#SignUpAlert").css("display", "none");
             }, 1500)
          }
         let user = { firstName, lastName, dob, email, password }
@@ -46,19 +46,20 @@
             dataType: "json",
             success: function (response) {
                 if (response.d === "User Already Exits!") {
-                    $("#Alert").css("display", "block");
-                    $("#Alert").text(response.d);
+                    $("#SignUpAlert").css("display", "block");
+                    $("#SignUpAlert").text(response.d);
                     setTimeout(() => {
                         $("#Alert").css("display", "none");
                     }, 1500)
                 } else {
+                    $("#logInModal").modal('show')
                     $("#Alert").removeClass("alert-danger");
                     $("#Alert").addClass("alert-success");
                     $("#Alert").css("display", "block");
-                    $("#Alert").text("User Sign-Up successfully!");
+                    $("#Alert").text("User Sign-Up successfully! Please Log In Now!");
                     setTimeout(() => {
-                        $("#logInModal").modal('show');
-                    }, 2000)
+                        $("#Alert").css("display", "block");
+                    }, 1000)
                 }
             },
             error: function (error) {

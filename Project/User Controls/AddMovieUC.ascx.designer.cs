@@ -15,15 +15,6 @@ namespace Project.User_Controls
     {
 
         /// <summary>
-        /// genre control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField genre;
-
-        /// <summary>
         /// movieTitle control.
         /// </summary>
         /// <remarks>
@@ -40,6 +31,15 @@ namespace Project.User_Controls
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox releaseYear;
+
+        /// <summary>
+        /// addGenre control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button addGenre;
 
         /// <summary>
         /// addMovie control.

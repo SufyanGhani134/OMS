@@ -29,19 +29,20 @@ namespace Project.Data_Layer
                     command.Parameters.AddWithValue("@ratings", movie.ratings);
                     command.Parameters.Add("@PKID", SqlDbType.Int, 32);
                     command.Parameters["@PKID"].Direction = ParameterDirection.Output;
+                    con.Open();
+                    command.ExecuteNonQuery();
                     foreach (var item in movie.genres)
                     {
                         DL newGenre = new DL();
                         newGenre.AddGenre(item);
-                        AddMovieGenre(Convert.ToInt32(command.Parameters["@PKID"].Value), item.title);
+                        AddMovieGenre(Convert.ToInt32(command.Parameters["@PKID"].Value), item);
                     }
-                    foreach (var item in Enum.GetValues(typeof(Resolution.resolution)))
+                    foreach (var item in movie.resolutions)
                     {
-                        AddMovieResolution(Convert.ToInt32(command.Parameters["@PKID"].Value), (string)item);
+                        AddMovieResolution(Convert.ToInt32(command.Parameters["@PKID"].Value), item);
                     }
 
-                    con.Open();
-                    command.ExecuteNonQuery();
+                   
                     response = Convert.ToString(command.Parameters["@PKID"].Value);
                     con.Close();
                 }
