@@ -45,24 +45,30 @@ namespace Project.Business_Layer
                         movie.duration = dataRow["duration"].ToString();
                         movie.price = Convert.ToInt32(dataRow["price"]);
                         movie.ratings = Convert.ToInt32(dataRow["ratings"]);
+                        movie.movieId = Convert.ToInt32(dataRow["movieID"]);
+                        movie.genres = new List<string>();
+                        movie.resolutions = new List<string>();
+
+
                         DL genreDL = new DL();
-                        DataTable genreIDs = genreDL.GetGenreIDs(Convert.ToInt32(dataRow["movieID"]));
+                        DataTable genreIDs = new DataTable();
+                        genreIDs = genreDL.GetGenreIDs(movie.movieId);
                         foreach (DataRow genreIDRow in genreIDs.Rows)
                         {
-                            DataTable genres = genreDL.GetGenres(Convert.ToInt32(dataRow["genreID"]));
+                            DataTable genres = genreDL.GetGenres(Convert.ToInt32(genreIDRow["genreID"]));
                             foreach (DataRow genreRow in genres.Rows)
                             {
                                 Genre genre = new Genre();
-                                genre.title = genreIDRow["title"].ToString();
-                                genre.genreID = Convert.ToInt32(genreIDRow["genreID"]);
-                                movie.genres.Add(genre.title);
+                                genre.title = genreRow["title"].ToString();
+                                genre.genreID = Convert.ToInt32(genreRow["genreID"]);
+                                movie.genres.Add(genre.title);  
                             }
                         }
                         DL resolutionDL = new DL();
-                        DataTable resolutionIDs = resolutionDL.GetResolutions(Convert.ToInt32(dataRow["movieID"]));
+                        DataTable resolutionIDs = resolutionDL.GetResolutionIDs(movie.movieId);
                         foreach (DataRow resolutionIDRow in resolutionIDs.Rows)
                         {
-                            DataTable resolutions = resolutionDL.GetResolutions(Convert.ToInt32(dataRow["resolutionID"]));
+                            DataTable resolutions = resolutionDL.GetResolutions(Convert.ToInt32(resolutionIDRow["resolutionID"]));
                             foreach (DataRow resolutionRow in resolutions.Rows)
                             {
                                 movie.resolutions.Add(resolutionRow["title"].ToString());

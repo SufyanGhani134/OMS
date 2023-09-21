@@ -114,7 +114,7 @@ namespace Project.Data_Layer
                 DataTable moviesTable = new DataTable();
                 using (SqlConnection con = new SqlConnection(_connectionString))
                 {
-                    SqlCommand command = new SqlCommand("AllMovies", con);
+                    SqlCommand command = new SqlCommand("GetAllMovies", con);
                     command.CommandType = CommandType.StoredProcedure;
 
                     con.Open();

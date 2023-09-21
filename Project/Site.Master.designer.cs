@@ -15,13 +15,22 @@ namespace Project
     {
 
         /// <summary>
-        /// cart control.
+        /// homeLink control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl cart;
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor homeLink;
+
+        /// <summary>
+        /// CartLink control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlAnchor CartLink;
 
         /// <summary>
         /// signUpBtn control.

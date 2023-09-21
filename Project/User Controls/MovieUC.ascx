@@ -22,7 +22,7 @@
   <img class="card-img-top poster rounded" src="../img/peakpx.jpg" alt="Card image cap">
   <div class="card-body">
       <div class="d-flex justify-content-between align-items-center mb-4">
-          <h1 class="card-title">Avengers<sub>(2020)</sub></h1>
+          <h1 class="card-title"><%: Title %><sub>(2020)</sub></h1>
           <strong>Ratings</strong>
       </div>
           <div class="d-flex align-items-center">

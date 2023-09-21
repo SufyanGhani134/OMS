@@ -12,13 +12,14 @@ namespace Project.Models
         private int cartID { get; set; }
         public string title { get; set; }
         public string poster { get; set; }
-        public DateTime generatedDate { get; set; }
+        public string generatedDate { get; set; }
         public int unitCost { get; set; }
         public bool isCheck { get; set; }
 
         public int CartID
         {
             get { return cartID; }
+            set { cartID = value; }
         }
     }
 }

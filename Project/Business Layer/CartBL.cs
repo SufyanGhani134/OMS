@@ -9,6 +9,7 @@ namespace Project.Business_Layer
 {
     public partial class BL
     {
+        public int cartID;
         public string UpdateCart(Cart cart)
         {
             try
@@ -25,11 +26,12 @@ namespace Project.Business_Layer
             }
         }
 
-        public void AddCartItem(CartItem cartItem)
+        public string  AddCartItem(CartItem cartItem)
         {
             try
             {
-                DL.AddCartItem(cartItem);
+               string response = DL.AddCartItem(cartItem);
+                return response;
             }
             catch (Exception exception)
             {
@@ -40,11 +42,14 @@ namespace Project.Business_Layer
             }
         }
 
-        public void UpdateCartItem(int cartItemID)
+        public void UpdateCartItem(List<int> cartItemIDs)
         {
             try
             {
-                DL.UpdateCartItem(cartItemID);
+                foreach (int id in cartItemIDs)
+                {
+                    DL.UpdateCartItem(id);
+                }
             }
             catch (Exception exception)
             {
@@ -82,15 +87,42 @@ namespace Project.Business_Layer
                     foreach (DataRow dataRow in cartItemsTable.Rows)
                     {
                         CartItem cartItem = new CartItem();
+                        cartItem.CartID = Convert.ToInt32(dataRow["cartID"]);
+                        cartItem.itemId =Convert.ToInt32(dataRow["cartItemID"]);
                         cartItem.title = dataRow["title"].ToString();
                         cartItem.poster = dataRow["poster"].ToString();
                         cartItem.unitCost = Convert.ToInt32(dataRow["unitCost"]);
-                        cartItem.generatedDate = Convert.ToDateTime(dataRow["generatedDate"]);
+                        cartItem.generatedDate = (dataRow["generatedDate"]).ToString();
                         cartItem.isCheck = (bool)dataRow["isCheck"];
                         cartItems.Add(cartItem);
                     }
                 }
                 return cartItems;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in GetCartItems in BL due to "
+                   + exception.Message, exception.InnerException);
+            }
+        }
+
+        public int GetCartId(int userID)
+        {
+            
+            try
+            {
+                DataTable cartIdTable = new DataTable();
+                cartIdTable = DL.GetCartId(userID);
+
+                if (cartIdTable != null && cartIdTable.Rows.Count > 0)
+                {
+                    foreach (DataRow dataRow in cartIdTable.Rows)
+                    {
+                         cartID = Convert.ToInt32(dataRow["cartID"]);
+                    }
+                }
+                return cartID;
             }
             catch (Exception exception)
             {

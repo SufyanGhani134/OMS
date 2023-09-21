@@ -124,8 +124,12 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="myScripts\AddCartScript.js" />
+    <Content Include="myScripts\getCartIDScript.js" />
+    <Content Include="myScripts\GetCartScript.js" />
+    <Content Include="myScripts\GetMovieScript.js" />
     <Content Include="myScripts\LogInScript.js" />
-    <Content Include="myScripts\MovieScript.js" />
+    <Content Include="myScripts\AddMovieScript.js" />
     <Content Include="myScripts\SignUpScript.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />

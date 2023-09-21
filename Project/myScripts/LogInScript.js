@@ -42,6 +42,8 @@
             dataType: "json",
             success: function (response) {
                 console.log(response.d)
+               
+                
                 if (JSON.parse(response.d).Status == "Admin") {
                     window.location.href = `Admin/${userID}/Home`;
                 } else {

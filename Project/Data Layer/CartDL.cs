@@ -40,8 +40,9 @@ namespace Project.Data_Layer
             }
         }
 
-        public void AddCartItem(CartItem cartItem)
+        public string AddCartItem(CartItem cartItem)
         {
+            string response = "";
             try
             {
                 using (SqlConnection con = new SqlConnection(_connectionString))
@@ -53,11 +54,23 @@ namespace Project.Data_Layer
                     command.Parameters.AddWithValue("@generatedDate", cartItem.generatedDate);
                     command.Parameters.AddWithValue("@poster", cartItem.poster);
                     command.Parameters.AddWithValue("@isCheck", false);
+                    command.Parameters.AddWithValue("@unitCost", cartItem.unitCost);
+                    command.Parameters.Add("@PKID", SqlDbType.Int, 32);
+                    command.Parameters["@PKID"].Direction = ParameterDirection.Output;
 
                     con.Open();
                     command.ExecuteNonQuery();
+                    if(Convert.ToString(command.Parameters["@PKID"].Value) != null)
+                    {
+                        response = "Movie Added To Cart Successfully!";
+                    }
+                    else
+                    {
+                        response = "Error!";
+                    }
                     con.Close();
                 }
+                return response;
             }
             catch (Exception exception)
             {
@@ -132,6 +145,35 @@ namespace Project.Data_Layer
                     con.Close();
                 }
                 return cartItemsTable;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in GetCartItems in DL due to "
+                   + exception.Message, exception.InnerException);
+            }
+
+        }
+
+        public DataTable GetCartId(int userID)
+        {
+            try
+            {
+                DataTable cartIdTable = new DataTable();
+                using (SqlConnection con = new SqlConnection(_connectionString))
+                {
+                    SqlCommand command = new SqlCommand("GetCartId", con);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("userID", userID);
+
+
+                    con.Open();
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter();
+                    dataAdapter.SelectCommand = command;
+                    dataAdapter.Fill(cartIdTable);
+                    con.Close();
+                }
+                return cartIdTable;
             }
             catch (Exception exception)
             {

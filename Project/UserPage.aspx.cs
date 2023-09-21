@@ -39,5 +39,63 @@ namespace Project
                    + exception.Message, exception.InnerException);
             }
         }
+
+        [WebMethod]
+        [ScriptMethod(UseHttpGet = true)]
+        public static List<Object> GetAllMovies()
+        {
+            try
+            {
+                BL movieBL = new BL();
+                List<Movie> movies = movieBL.GetAllMovies();
+                List<Object> response = new List<Object>();
+                foreach (Movie movie in movies)
+                {
+                    response.Add((Object)movie);
+                }
+                return response;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in UserPage due to "
+                   + exception.Message, exception.InnerException);
+            }
+        }
+
+        [WebMethod]
+        [ScriptMethod(UseHttpGet = true)]
+        public static int GetCartId(int userID)
+        {
+            try
+            {
+                BL cartBL = new BL();
+                int cartID = cartBL.GetCartId(userID);
+                return cartID;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in UserPage due to "
+                   + exception.Message, exception.InnerException);
+            }
+        }
+
+        [WebMethod]
+        public static string AddCartItem(CartItem cartItem)
+        {
+            try
+            {
+                BL cartBL = new BL();
+                string response = cartBL.AddCartItem(cartItem);
+                return response;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in AddCartItem due to "
+                   + exception.Message, exception.InnerException);
+            }
+        }
     }
 }

@@ -7,8 +7,10 @@ using System.Web.UI.WebControls;
 
 namespace Project.User_Controls
 {
+    
     public partial class MovieUC : System.Web.UI.UserControl
     {
+        public string Title;
         protected void Page_Load(object sender, EventArgs e)
         {
 

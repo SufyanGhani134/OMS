@@ -1,5 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AddMovieUC.ascx.cs" ClientIDMode="Static" Inherits="Project.User_Controls.AddMovieUC" %>
 <div class="container bg-light d-flex flex-column p-5 rounded-3 mt-3" style="gap:1rem;">
+    <div class="alert w-75 alert-danger alert-dismissible fade show" role="alert" id="AddMovieAlert" style="display:none;" >
+            <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+    </div>
     <div class="d-flex w-100 justify-content-center">
         <div class="d-flex w-25 align-items-center">
            <label for="movieTitle"><strong>Title :</strong></label>

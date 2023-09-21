@@ -45,12 +45,12 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item"><a class="nav-link" runat="server" href="#">Home</a></li>
-                        <li runat="server" class="nav-item" id="cart" visible="false">
-                            <a class="nav-link" runat="server" href="UserPage/Cart" >
+                    <ul class="navbar-nav flex-grow-1" id="navBar">
+                        <li class="nav-item"><a class="nav-link" runat="server" id="homeLink">Home</a></li>
+                        <li runat="server" class="nav-item">
+                            <a class="nav-link" id="CartLink" runat="server" style="cursor: pointer;" >
                             Cart
-                            <span class="badge badge-primary badge-pill">14</span>
+                            <%--<span class="badge badge-primary badge-pill">14</span>--%>
                             </a>
                         </li>
                         <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">Contact</a></li>
@@ -71,6 +71,9 @@
                 </div>
             </div>
         </nav>
+        <div class="alert w-100 alert-danger alert-dismissible fade show" role="alert" id="CartAlert" style="display:none;" >
+            <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+        </div>
        <div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logInModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -115,8 +118,34 @@
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/Scripts/bootstrap.js") %>
     </asp:PlaceHolder>
-    <script src='<%=ResolveClientUrl("~/myScripts/LogInScript.js") %>' 
+    <script src='<%=ResolveClientUrl("~/myScripts/LogInScript.js?v=1") %>' 
     type="text/javascript"></script>
-    
+    <script>
+        let url = window.location.href
+        let userID = url.split("/")[4];
+        console.log(userID)
+        $("#CartLink").click(() => {
+            if (typeof userID === "undefined" || userID.trim() === "") {
+                console.log("here")
+                $("#CartAlert").css("display", "block");
+                $("#CartAlert").text("Please Log In First!");
+                setTimeout(() => {
+                    $("#CartAlert").css("display", "none");
+                }, 1500)
+                return;
+            } else {
+                window.location.href = `/UserPage/${userID}/Cart`
+            }
+        })
+        $("#homeLink").click(() => {
+            if (typeof userID === "undefined" || userID.trim() === "") {
+                window.location.href = "Home"
+            } else {
+                window.location.href = `/UserPage/${userID}/Home`
+            }
+        })
+        
+        
+    </script>
 </body>
 </html>

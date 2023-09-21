@@ -131,12 +131,9 @@ GO
 	@movieID INT
 AS
 BEGIN
-	INSERT INTO MovieGenre (movieID) VALUES (@movieID);
-	INSERT INTO MovieGenre (genreID)
-    SELECT G.genreID FROM  Genres G WHERE G.title = @genre
+	INSERT INTO MovieGenre (movieID, genreID) VALUES (@movieID,( SELECT G.genreID FROM  Genres G WHERE G.title = @genre));
 END
-
-execute AddMovieGenre 'fiction', 1
+execute AddMovieGenre 'comedy', 1
 
 ---Add To MovieResolution Table
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[AddMovieResolution]'))
@@ -147,13 +144,13 @@ GO
 	@resolution VARCHAR(MAX)
 AS
 BEGIN
-	INSERT INTO MovieResolution (movieID) VALUES (@movieID);
-	INSERT INTO MovieResolution (resolutionID)
-    SELECT R.resolutionID FROM  Resolution R WHERE R.title =@resolution
+	INSERT INTO MovieResolution (movieID, resolutionID) VALUES (@movieID, (SELECT R.resolutionID FROM  Resolution R WHERE R.title = @resolution));
+    
 END
 
 
 execute AddMovieResolution 1, '720p'
+
 ---Get All Movies
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[GetAllMovies]'))
 	DROP PROCEDURE GetAllMovies
@@ -164,6 +161,7 @@ AS
 BEGIN 
 	SELECT * FROM Movies
 END
+execute GetAllMovies
 
 ---Get Admin Movies
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[GetAdminMovies]'))
@@ -188,6 +186,8 @@ AS
 BEGIN 
 	SELECT genreID FROM MovieGenre WHERE movieID = @movieID
 END
+execute GetGenreIDs 2
+
 
 ---Get AllGenres of a movie
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[GetGenres]'))
@@ -198,7 +198,7 @@ GO
 	@genreID INT
 AS
 BEGIN 
-	SELECT * FROM MovieGenre WHERE genreID = @genreID
+	SELECT * FROM Genres WHERE genreID = @genreID
 END
 
 --Get All Genres
@@ -224,6 +224,8 @@ BEGIN
 	SELECT resolutionID FROM MovieResolution WHERE movieID = @movieID
 END
 
+
+
 ---GetResolution
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[GetResolutions]'))
 	DROP PROCEDURE GetResolutions
@@ -233,7 +235,7 @@ GO
 	@resolutionID INT
 AS
 BEGIN 
-	SELECT * FROM MovieResolution WHERE resolutionID = @resolutionID
+	SELECT title FROM Resolution WHERE resolutionID = @resolutionID
 END
 
 
@@ -374,12 +376,15 @@ GO
 		@title VARCHAR(50),
 		@poster NVARCHAR(MAX),
 		@unitCost FLOAT,
-		@generatedDate DATETIME,
-		@isCheck BIT
+		@generatedDate VARCHAR(50),
+		@isCheck BIT,
+		@PKID INT = 0 output
 AS
 BEGIN 
 	INSERT INTO CartItems(cartID, title, poster, unitCost, generatedDate, isCheck) 
 		VALUES (@cartID, @title, @poster, @unitCost, @generatedDate, @isCheck)
+	SET @PKID = @@IDENTITY
+	SELECT @PKID as PKID
 END
 
 ---Remove From Cart
@@ -407,18 +412,30 @@ BEGIN
 	SELECT * FROM CartItems WHERE cartID = @cartID
 END
 
+--GetCartId
+IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[GetCartId]'))
+	DROP PROCEDURE GetCartId
+
+GO
+	CREATE PROCEDURE GetCartId
+	@userID INT
+AS
+BEGIN 
+	SELECT cartID FROM Cart WHERE userID = @userID
+END
+
 --Update Cart Item
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[UpdateCartItem]'))
 	DROP PROCEDURE UpdateCartItem
 GO
 	CREATE PROCEDURE UpdateCartItem
-	@cartID INT
+	@cartItemID INT
 AS
 BEGIN
 	UPDATE CartItems
     SET isCheck = 1, generatedDate = GETDATE()
     FROM CartItems 
-    WHERE cartID = @cartID
+    WHERE cartItemID = @cartItemID
 END
 
 

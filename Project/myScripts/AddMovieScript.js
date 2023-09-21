@@ -1,27 +1,5 @@
 ﻿$(document).ready(function () {
-    $.ajax({
-        type: "GET",
-        url: "../../AdminPage.aspx/GetAllGenres",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function (response) {
-            console.log(response.d)
-            let genersArr = response.d.slice(1, -1).split(",")
-            console.log(genersArr)
-            genersArr.forEach((item) => {
-                console.log(item)
-
-            })
-        },
-        error: function (xhr, error) {
-            console.log(xhr.statusText, "this is the xhr");
-            console.log(error, "this is the error");
-        }
-    });
-
     var genres = [];
-
-
     $(".genres").change(function() {
 
         if (this.checked) {
@@ -60,12 +38,13 @@
         let duration = `${hrs}:${mins}`;
         let ratings = parseFloat($("#rating").val());
         let description = $("#description").val();
-        let poster = $("#poster").val();
+        let posterPath = $("#poster").val().split("\\");
+        let poster = posterPath[posterPath.length-1]
         let price = parseFloat($("#price").val());
         let url = window.location.pathname;
         let UserID = parseInt(url.split('/')[2]);
         let movie = { UserID, title, ReleaseYear, description, genres, duration, price, ratings, poster, resolutions }
-        console.log(movie)
+        console.log(poster)
 
         $.ajax({
             type: "POST",
@@ -75,6 +54,21 @@
             data: JSON.stringify({ movie: JSON.stringify(movie) }),
             success: function (response) {
                 console.log(response.d)
+                if (!response.d) {
+                    $("#AddMovieAlert").css("display", "block");
+                    $("#AddMovieAlert").text("Error!")
+                    setTimeout(() => {
+                        $("#AddMovieAlert").css("display", "none");
+                    }, 1500)
+                } else {
+                    $("#AddMovieAlert").removeClass("alert-danger");
+                    $("#AddMovieAlert").addClass("alert-success");
+                    $("#AddMovieAlert").css("display", "block");
+                    $("#AddMovieAlert").text("Movie Added successfully!");
+                    setTimeout(() => {
+                        $("#Alert").css("display", "block");
+                    }, 1000)
+                }
 
             },
             error: function (error) {
