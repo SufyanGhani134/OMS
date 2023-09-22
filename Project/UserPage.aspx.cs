@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Policy;
 using System.Web;
 using System.Web.Script.Services;
 using System.Web.Services;
@@ -18,7 +19,45 @@ namespace Project
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            int isLoggedIn = Convert.ToInt32(HttpContext.Current.Session["IsLoggedIn"]);
+            string currentUrl = System.Web.HttpContext.Current.Request.Url.AbsoluteUri;
+            string[] userIDArr = currentUrl.Split(new char[] { '/' });
+            if (userIDArr.Length > 4)
+            {
+                int userID = Convert.ToInt32(userIDArr[4]);
+                if(userID != isLoggedIn)
+                {
+                    Response.Redirect("/Home");
+                }
+            }
+            else
+            {
+                Response.Redirect("/Home");
+            }
+            
+        }
+        
 
+
+        [WebMethod(EnableSession = true)]
+        public static int UserLogIn(string Email, string Password)
+        {
+            try
+            {
+                BL userBL = new BL();
+                int response = userBL.UserLogIn(Email, Password);
+                if (response != 0 )
+                {
+                    HttpContext.Current.Session["IsLoggedIn"] = response;
+                }
+                return response;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in LogInPage due to "
+                   + exception.Message, exception.InnerException);
+            }
         }
 
         [WebMethod]
@@ -94,6 +133,46 @@ namespace Project
             {
                 throw new Exception("An exception of type " + exception.GetType().ToString()
                    + " is encountered in AddCartItem due to "
+                   + exception.Message, exception.InnerException);
+            }
+        }
+
+        [WebMethod]
+        public static string AddSearchHistory(int userID, List<string> genres)
+        {
+            try
+            {
+                BL suggestionBL = new BL();
+                string response = suggestionBL.AddSearchHistory(userID, genres);
+                return response;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in AddSearch due to "
+                   + exception.Message, exception.InnerException);
+            }
+        }
+
+        [WebMethod]
+        [ScriptMethod(UseHttpGet = true)]
+        public static List<Object> GetSuggestMovies(int userID)
+        {
+            try
+            {
+                BL movieBL = new BL();
+                List<Movie> movies = movieBL.GetSuggestMovies(userID);
+                List<Object> response = new List<Object>();
+                foreach (Movie movie in movies)
+                {
+                    response.Add((Object)movie);
+                }
+                return response;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in UserPage due to "
                    + exception.Message, exception.InnerException);
             }
         }

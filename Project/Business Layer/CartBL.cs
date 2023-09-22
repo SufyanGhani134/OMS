@@ -10,12 +10,12 @@ namespace Project.Business_Layer
     public partial class BL
     {
         public int cartID;
-        public string UpdateCart(Cart cart)
+        public string UpdateCart(int cartID, float totalCost)
         {
             try
             {
-                string response = DL.AddCart(cart);
-                return response;
+                DL.UpdateCart(cartID, totalCost);
+                return "cart updated!!";
             }
             catch (Exception exception)
             {

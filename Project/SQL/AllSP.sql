@@ -260,7 +260,7 @@ BEGIN
 	END
 	SELECT @isValid AS isValid;
 END
-
+execute RemoveMovies 9, 3;
 ---Update Admin Movies
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[UpdateMovie]'))
 	DROP PROCEDURE UpdateMovie
@@ -465,6 +465,8 @@ BEGIN
 	DELETE FROM SearchHistory WHERE userID = @userID;
 END
 
+execute ClearSearch 4
+
 ---GetSearch
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[GetSearch]'))
 	DROP PROCEDURE GetSearch
@@ -490,7 +492,7 @@ BEGIN
     INSERT INTO #TempGenres (genre)
     SELECT DISTINCT genre
     FROM SearchHistory
-    WHERE userID = @userID;
+    WHERE userID = 1;
 
 
     CREATE TABLE #TempGenreID (genreID INT);
@@ -508,13 +510,15 @@ BEGIN
     INNER JOIN #TempGenreID TGI ON MG.genreID = TGI.genreID;
 
     SELECT M.*
-    FROM Movie M
+    FROM Movies M
     INNER JOIN #TempMovieID TM ON M.MovieID = TM.movieID;
 
     DROP TABLE #TempGenres;
     DROP TABLE #TempGenreID;
     DROP TABLE #TempMovieID;
 END
+
+Execute Suggestions 1
 
 ---Add Admin
 INSERT INTO Users(firstName, lastName, dob, email, password, roleID)

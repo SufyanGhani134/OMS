@@ -124,12 +124,16 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="HistoryPage.aspx" />
     <Content Include="myScripts\AddCartScript.js" />
+    <Content Include="myScripts\DisplayMovies.js" />
     <Content Include="myScripts\getCartIDScript.js" />
     <Content Include="myScripts\GetCartScript.js" />
+    <Content Include="myScripts\GetHistory.js" />
     <Content Include="myScripts\GetMovieScript.js" />
     <Content Include="myScripts\LogInScript.js" />
     <Content Include="myScripts\AddMovieScript.js" />
+    <Content Include="myScripts\SearchScript.js" />
     <Content Include="myScripts\SignUpScript.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -210,6 +214,7 @@
     <Compile Include="Business Layer\CartBL.cs" />
     <Compile Include="Business Layer\GenreBL.cs" />
     <Compile Include="Business Layer\MovieBL.cs" />
+    <Compile Include="Business Layer\SuggestionsBL.cs" />
     <Compile Include="Business Layer\UserBL.cs" />
     <Compile Include="CartPage.aspx.cs">
       <DependentUpon>CartPage.aspx</DependentUpon>
@@ -223,6 +228,7 @@
     <Compile Include="Data Layer\GenreDL.cs" />
     <Compile Include="Data Layer\MovieDL.cs" />
     <Compile Include="Data Layer\ResolutionDL.cs" />
+    <Compile Include="Data Layer\Suggestions.cs" />
     <Compile Include="Data Layer\UserDL.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -233,6 +239,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="HistoryPage.aspx.cs">
+      <DependentUpon>HistoryPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HistoryPage.aspx.designer.cs">
+      <DependentUpon>HistoryPage.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\CartItem.cs" />

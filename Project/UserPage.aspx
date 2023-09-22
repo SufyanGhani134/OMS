@@ -41,6 +41,8 @@
     </div>
     <script src='<%=ResolveClientUrl("~/myScripts/GetMovieScript.js") %>' 
     type="text/javascript"></script>
+    <script src='<%=ResolveClientUrl("~/myScripts/DisplayMovies.js") %>' 
+    type="text/javascript"></script>
     <script src='<%=ResolveClientUrl("~/myScripts/AddCartScript.js") %>' 
     type="text/javascript"></script>
     <script src='<%=ResolveClientUrl("~/myScripts/getCartIDScript.js") %>' 

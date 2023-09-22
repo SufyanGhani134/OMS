@@ -15,7 +15,21 @@ namespace Project
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            int isLoggedIn = Convert.ToInt32(HttpContext.Current.Session["IsLoggedIn"]);
+            string currentUrl = System.Web.HttpContext.Current.Request.Url.AbsoluteUri;
+            string[] userIDArr = currentUrl.Split(new char[] { '/' });
+            if (userIDArr.Length > 4)
+            {
+                int userID = Convert.ToInt32(userIDArr[4]);
+                if (userID != isLoggedIn)
+                {
+                    Response.Redirect("/Home");
+                }
+            }
+            else
+            {
+                Response.Redirect("/Home");
+            }
         }
 
         [WebMethod]
@@ -31,6 +45,42 @@ namespace Project
                 {
                     response.Add((Object)item);
                 }
+
+                return response;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in LogInPage due to "
+                   + exception.Message, exception.InnerException);
+            }
+        }
+
+        [WebMethod]
+        public static string UpdateCartItems(List<int> cartItemIDs)
+        {
+            try
+            {
+                BL cartBL = new BL();
+               cartBL.UpdateCartItem(cartItemIDs);
+
+                return "Received array: " + string.Join(", ", cartItemIDs); 
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in LogInPage due to "
+                   + exception.Message, exception.InnerException);
+            }
+        }
+
+        [WebMethod]
+        public static string UpdateCart(int cartID, float totalCost)
+        {
+            try
+            {
+                BL cartBL = new BL();
+                string response = cartBL.UpdateCart(cartID, totalCost);
 
                 return response;
             }

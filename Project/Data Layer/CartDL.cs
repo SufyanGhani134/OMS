@@ -88,7 +88,31 @@ namespace Project.Data_Layer
                 {
                     SqlCommand command = new SqlCommand("UpdateCartItem", con);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@cartID", cartItemID);
+                    command.Parameters.AddWithValue("@cartItemID", cartItemID);
+
+                    con.Open();
+                    command.ExecuteNonQuery();
+                    con.Close();
+                }
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in UpdateCartItem in DL due to "
+                   + exception.Message, exception.InnerException);
+            }
+        }
+
+        public void UpdateCart(int cartID, float totalCost)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(_connectionString))
+                {
+                    SqlCommand command = new SqlCommand("UpdateCart", con);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@cartID", cartID);
+                    command.Parameters.AddWithValue("@totalCost", totalCost);
 
                     con.Open();
                     command.ExecuteNonQuery();
@@ -135,7 +159,7 @@ namespace Project.Data_Layer
                 {
                     SqlCommand command = new SqlCommand("GetCartItems", con);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("cartID", cartID);
+                    command.Parameters.AddWithValue("@cartID", cartID);
 
 
                     con.Open();

@@ -1,43 +1,52 @@
-﻿$(document).ready(async function () {
-    let url = window.location.href
-    let userID = url.split("/")[4];
-    console.log(userID);
+﻿$(document).ready( function () {
+    console.log("----")
     let totalCost = 0;
     let cartItems = [];
     let checkedItems = [];
-    calculateTotal(cartItems);
-    $("#checkOutBtn").html("Check out (" + totalCost + ")");
+    let CartID
+    GetCartItems();
+    async function GetCartItems() {
 
-    try {
-        let CartID = await getCartID(userID) ;
-        console.log(CartID, "CartID")
-        $.ajax({
-            type: "GET",
-            url: "/CartPage.aspx/GetCartItems",
-            contentType: "application/json; charset=utf-8",
-            data: { cartID: 4 },
-            dataType: "json",
-            success: function (response) {
-                console.log(response.d)
-                cartItems = response.d;
-                for (let i = 0; i < cartItems.length; i++) {
-                    $("#cartTableBody").append(displayCart(cartItems[i]));
+        let url = window.location.href
+        let userID = url.split("/")[4];
+        
+        calculateTotal(cartItems);
+        $("#checkOutBtn").html("Check out (" + totalCost + ")");
+        try {
+             CartID = await getCartID(userID);
+            $.ajax({
+                type: "GET",
+                url: "/CartPage.aspx/GetCartItems",
+                contentType: "application/json; charset=utf-8",
+                data: { cartID: CartID },
+                dataType: "json",
+                success: function (response) {
+                    $("#cartTableBody").html();
+                    response.d.forEach((item) => {
+                        if (!item.isCheck) {
+                            cartItems.push(item)
+                        }
+                        console.log("Getting Cart Items")
+                    })
+                    
+                    for (let i = 0; i < cartItems.length; i++) {
+                        $("#cartTableBody").append(displayCart(cartItems[i]));
 
-                    $(`#itemCheck_${cartItems[i].itemId}`).on('change', function () {
-                        changeStatus(cartItems[i], this.checked); 
-                    });
+                        $(`#itemCheck_${cartItems[i].itemId}`).on('change', function () {
+                            changeStatus(cartItems[i], this.checked);
+                        });
 
+                    }
+
+                },
+                error: function (error) {
+                    console.log(error, "this is the GET error");
                 }
-                
-            },
-            error: function (error) {
-                console.log(error, "this is the GET error");
-            }
-        });
-    } catch (error) {
-        console.error("Error while getting CartID:", error);
+            });
+        } catch (error) {
+            console.error("Error while getting CartID:", error);
+        }
     }
-
     function displayCart(item) {
 
         return `
@@ -68,24 +77,74 @@
 
     }
     function changeStatus(item, isChecked) {
-        console.log(item);
         if (isChecked) {
-            console.log(`Checkbox for item ${item.itemId} is checked.`);
             item.isCheck = true;
             checkedItems.push(item);
-            console.log(checkedItems)
         } else {
-            console.log(`Checkbox for item ${item.itemId} is unchecked.`);
             let updatedItems = checkedItems.filter(element => element.itemId != item.itemId)
             checkedItems = updatedItems;
-            console.log(checkedItems)
-
         }
 
         calculateTotal(checkedItems);
-        console.log(totalCost, "Total")
     }
+    
+    $("#checkOutBtn").click(() => { CheckOut() })
 
+    function CheckOut() {
+        const checkedIDs = checkedItems.map(item => item.itemId);
+        if (checkedItems.length > 0) {
+            $.ajax({
+                type: "POST",
+                url: "/CartPage.aspx/UpdateCartItems",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ cartItemIDs: checkedIDs }),
+                dataType: "json",
+                success: function (response) {
+                    //GetCartItems();
+                },
+                error: function (error) {
+                    console.log(error, "this is the POST error");
+                }
+            })
+            $.ajax({
+                type: "POST",
+                url: "/CartPage.aspx/UpdateCart",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ cartID: CartID, totalCost: totalCost }),
+                dataType: "json",
+                success: function (response) {
+                    console.log(response.d)
+                },
+                error: function (error) {
+                    console.log(error, "this is the POST error");
+                }
+            })
 
+            checkedItems.forEach((item) => {
+                $("#receiptBody").append(DisplayReceipt(item))
+            })
+            $("#checkOutBtn").attr("data - bs - toggle", "modal")
+
+        } else {
+            alert("select check box to buy items!")
+        }
+        
+
+        function DisplayReceipt(item) {
+            let generatedDate = new Date();
+            return `
+            <div class="card my-2">
+                          <div class="card-header">
+                            Price: ${item.unitCost}
+                          </div>
+                          <div class="card-body">
+                            <h5 class="card-title">${item.title}</h5>
+                            <p>Bought At:</p>
+                            <p class="card-text">${generatedDate}</p>
+                          </div>
+            </div>
+            `
+        }
+    }
     
 })

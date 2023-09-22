@@ -18,13 +18,20 @@ namespace Project
 
         }
 
+
         [WebMethod]
-        public static int UserLogIn(string Email, string Password)
+        [ScriptMethod(UseHttpGet = true)]
+        public static List<Object> GetSearchMovies(string title)
         {
             try
             {
-                BL userBL = new BL();
-                int response = userBL.UserLogIn(Email, Password);
+                BL cartBL = new BL();
+                List<Movie> movies = cartBL.GetSearchMovies(title);
+                List<Object> response = new List<Object>();
+                foreach (Movie item in movies)
+                {
+                    response.Add((Object)item);
+                }
 
                 return response;
             }
@@ -36,6 +43,6 @@ namespace Project
             }
         }
 
-        
+
     }
 }

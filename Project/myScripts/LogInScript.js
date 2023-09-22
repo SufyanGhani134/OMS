@@ -7,7 +7,7 @@
 
         $.ajax({
             type: "POST",
-            url: "Default.aspx/UserLogIn",
+            url: "UserPage.aspx/UserLogIn",
             data: JSON.stringify({ Email: email, Password: password }),
             contentType: "application/json; charset=utf-8",
             dataType: "json",

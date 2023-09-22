@@ -230,7 +230,7 @@ namespace Project.Data_Layer
                 using (SqlConnection con = new SqlConnection(_connectionString))
                 {
                     SqlCommand command = new SqlCommand("GetAdminMovies", con);
-                    command.Parameters.AddWithValue("userID", userID);
+                    command.Parameters.AddWithValue("@userID", userID);
                     command.CommandType = CommandType.StoredProcedure;
 
                     con.Open();
@@ -245,6 +245,34 @@ namespace Project.Data_Layer
             {
                 throw new Exception("An exception of type " + exception.GetType().ToString()
                    + " is encountered in GetAdminMovies in DL due to "
+                   + exception.Message, exception.InnerException);
+            }
+
+        }
+
+        public DataTable GetSearchMovies(string title)
+        {
+            try
+            {
+                DataTable moviesTable = new DataTable();
+                using (SqlConnection con = new SqlConnection(_connectionString))
+                {
+                    SqlCommand command = new SqlCommand("GetSearch", con);
+                    command.Parameters.AddWithValue("@search", title);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    con.Open();
+                    SqlDataAdapter dataAdapter = new SqlDataAdapter();
+                    dataAdapter.SelectCommand = command;
+                    dataAdapter.Fill(moviesTable);
+                    con.Close();
+                }
+                return moviesTable;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in GetSearchMovies in DL due to "
                    + exception.Message, exception.InnerException);
             }
 

@@ -46,15 +46,24 @@
                 </button>
                 <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1" id="navBar">
-                        <li class="nav-item"><a class="nav-link" runat="server" id="homeLink">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" runat="server" id="homeLink" style="cursor: pointer;">Home</a></li>
                         <li runat="server" class="nav-item">
                             <a class="nav-link" id="CartLink" runat="server" style="cursor: pointer;" >
                             Cart
-                            <%--<span class="badge badge-primary badge-pill">14</span>--%>
+                            <span class="badge badge-primary badge-pill" id="totalItems"></span>
                             </a>
                         </li>
-                        <li class="nav-item"><a class="nav-link" runat="server" href="~/Contact">Contact</a></li>
+                        <li class="nav-item" id="suggestTab"><a class="nav-link" runat="server" style="cursor: pointer;">Suggestions</a></li>
+                        <li class="nav-item" id="historyTab"><a class="nav-link" runat="server" style="cursor: pointer;">History</a></li>
+
                     </ul>
+                </div>
+                <div class="d-flex mx-3">
+                    <input class="form-control me-2" id="SearchInput" type="search" placeholder="Search" aria-label="Search">
+                    <asp:Button runat="server" class="btn btn-outline-success"
+                        type="submit" id="searchBtn" Text="Search" OnClientClick="return false">
+                        
+                    </asp:Button>
                 </div>
                 <div> 
                     <asp:Button runat="server" type="button" CssClass="btn btn-primary"
@@ -118,7 +127,11 @@
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/Scripts/bootstrap.js") %>
     </asp:PlaceHolder>
-    <script src='<%=ResolveClientUrl("~/myScripts/LogInScript.js?v=1") %>' 
+    <script src='<%=ResolveClientUrl("~/myScripts/LogInScript.js?v=1.2") %>' 
+    type="text/javascript"></script>
+    <script src='<%=ResolveClientUrl("~/myScripts/SearchScript.js?v=1") %>' 
+    type="text/javascript"></script>
+    <script src='<%=ResolveClientUrl("~/myScripts/DisplayMovies.js") %>' 
     type="text/javascript"></script>
     <script>
         let url = window.location.href
@@ -144,7 +157,13 @@
                 window.location.href = `/UserPage/${userID}/Home`
             }
         })
-        
+        $("#historyTab").click(() => {
+            if (typeof userID === "undefined" || userID.trim() === "") {
+                window.location.href = "Home"
+            } else {
+                window.location.href = `/UserPage/${userID}/History`
+            }
+        })
         
     </script>
 </body>

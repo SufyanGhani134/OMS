@@ -17,6 +17,10 @@ namespace Project
             routes.MapPageRoute("CartPageRoute", "UserPage/{id}/Cart", "~/CartPage.aspx");
             routes.MapPageRoute("AdminHomeRoute", "Admin/{id}/Home", "~/AdminPage.aspx");
             routes.MapPageRoute("AdminRoute", "Admin/{id}", "~/AdminPage.aspx");
+            routes.MapPageRoute("HistoryRoute", "UserPage/{id}/History", "~/HistoryPage.aspx");
+            routes.MapPageRoute("CartRoute", "UserPage/{id}/Cart", "~/CartPage.aspx");
+
+
 
 
             routes.RouteExistingFiles = false;
