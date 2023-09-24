@@ -133,6 +133,7 @@
     <Content Include="myScripts\GetMovieScript.js" />
     <Content Include="myScripts\LogInScript.js" />
     <Content Include="myScripts\AddMovieScript.js" />
+    <Content Include="myScripts\navLinks.js" />
     <Content Include="myScripts\SearchScript.js" />
     <Content Include="myScripts\SignUpScript.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />

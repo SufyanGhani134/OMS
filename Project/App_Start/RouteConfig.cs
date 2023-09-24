@@ -13,12 +13,15 @@ namespace Project
             routes.MapPageRoute("DefaultRoute", "", "~/Default.aspx");
             routes.MapPageRoute("HomeRoute", "Home", "~/Default.aspx");
             routes.MapPageRoute("SignUpPageRoute", "SignUpPage", "~/SignUpPage.aspx");
+            routes.MapPageRoute("UserPageRoute", "UserPage/{id}/", "~/UserPage.aspx");
             routes.MapPageRoute("UserHomePageRoute", "UserPage/{id}/Home", "~/UserPage.aspx");
             routes.MapPageRoute("CartPageRoute", "UserPage/{id}/Cart", "~/CartPage.aspx");
-            routes.MapPageRoute("AdminHomeRoute", "Admin/{id}/Home", "~/AdminPage.aspx");
-            routes.MapPageRoute("AdminRoute", "Admin/{id}", "~/AdminPage.aspx");
             routes.MapPageRoute("HistoryRoute", "UserPage/{id}/History", "~/HistoryPage.aspx");
-            routes.MapPageRoute("CartRoute", "UserPage/{id}/Cart", "~/CartPage.aspx");
+            routes.MapPageRoute("AdminHomeRoute", "Admin/{id}/Home", "~/AdminPage.aspx");
+            routes.MapPageRoute("AdminRoute", "Admin/{id}/", "~/AdminPage.aspx");
+            routes.MapPageRoute("AdminCartRoute", "Admin/{id}/Cart", "~/CartPage.aspx");
+            routes.MapPageRoute("AdminHistoryRoute", "Admin/{id}/History", "~/CartPage.aspx");
+
 
 
 

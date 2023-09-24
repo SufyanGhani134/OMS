@@ -80,7 +80,7 @@
                 </div>
             </div>
         </nav>
-        <div class="alert w-100 alert-danger alert-dismissible fade show" role="alert" id="CartAlert" style="display:none;" >
+        <div class="alert w-100 alert-danger alert-dismissible fade show fixed-top" role="alert" id="Alert" style="display:none;" >
             <strong>Holy guacamole!</strong> You should check in on some of those fields below.
         </div>
        <div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logInModalLabel" aria-hidden="true">
@@ -89,7 +89,7 @@
                     <div class="py-2 text-center">
                         <h3 class="modal-title" id="logInModalLabel">Log In</h3>
                     </div>
-                    <div class="alert w-100 alert-danger alert-dismissible fade show text-center" role="alert" id="Alert" style="display: none;">
+                    <div class="alert w-100 alert-danger alert-dismissible fade show text-center" role="alert" id="logInAlert" style="display: none;">
                         <strong>Holy guacamole!</strong> You should check in on some of those fields below.
                     </div>
                     <div class="d-flex flex-column p-3">
@@ -127,44 +127,13 @@
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/Scripts/bootstrap.js") %>
     </asp:PlaceHolder>
+    <script src='<%=ResolveClientUrl("~/myScripts/navLinks.js") %>' 
+    type="text/javascript"></script>
     <script src='<%=ResolveClientUrl("~/myScripts/LogInScript.js?v=1.2") %>' 
     type="text/javascript"></script>
     <script src='<%=ResolveClientUrl("~/myScripts/SearchScript.js?v=1") %>' 
     type="text/javascript"></script>
     <script src='<%=ResolveClientUrl("~/myScripts/DisplayMovies.js") %>' 
     type="text/javascript"></script>
-    <script>
-        let url = window.location.href
-        let userID = url.split("/")[4];
-        console.log(userID)
-        $("#CartLink").click(() => {
-            if (typeof userID === "undefined" || userID.trim() === "") {
-                console.log("here")
-                $("#CartAlert").css("display", "block");
-                $("#CartAlert").text("Please Log In First!");
-                setTimeout(() => {
-                    $("#CartAlert").css("display", "none");
-                }, 1500)
-                return;
-            } else {
-                window.location.href = `/UserPage/${userID}/Cart`
-            }
-        })
-        $("#homeLink").click(() => {
-            if (typeof userID === "undefined" || userID.trim() === "") {
-                window.location.href = "Home"
-            } else {
-                window.location.href = `/UserPage/${userID}/Home`
-            }
-        })
-        $("#historyTab").click(() => {
-            if (typeof userID === "undefined" || userID.trim() === "") {
-                window.location.href = "Home"
-            } else {
-                window.location.href = `/UserPage/${userID}/History`
-            }
-        })
-        
-    </script>
 </body>
 </html>

@@ -4,10 +4,10 @@
     console.log(userID)
     if (typeof userID === "undefined" || userID.trim() === "") {
         console.log("here")
-        $("#CartAlert").css("display", "block");
-        $("#CartAlert").text("Please Log In First!");
+        $("#Alert").show();
+        $("#Alert").text("Please Log In First!");
         setTimeout(() => {
-            $("#CartAlert").css("display", "none");
+            $("#Alert").hide();
         }, 1500)
         return;
     }
@@ -30,29 +30,29 @@
             dataType: "json",
             success: function (response) {
                 console.log(response.d)
-                $("#CartAlert").removeClass("alert-danger");
-                $("#CartAlert").addClass("alert-success");
-                $("#CartAlert").css("display", "block");
-                $("#CartAlert").text(response.d);
+                $("#Alert").removeClass("alert-danger");
+                $("#Alert").addClass("alert-success");
+                $("#Alert").show();
+                $("#Alert").text(response.d);
                 setTimeout(() => {
-                    $("#CartAlert").css("display", "none");
+                    $("#Alert").hide();
                 }, 1500)
             },
             error: function (error) {
                 console.log(error, "this is the POST error");
-                $("#CartAlert").css("display", "block");
-                $("#CartAlert").text("Error while Adding To Cart!");
+                $("#Alert").show();
+                $("#Alert").text("Error while Adding To Cart!");
                 setTimeout(() => {
-                    $("#CartAlert").css("display", "none");
+                    $("#Alert").hide();
                 }, 1500)
             }
         });
     } catch (error) {
         console.error("Error while getting CartID:", error);
-        $("#CartAlert").css("display", "block");
-        $("#CartAlert").text("Error while Adding To Cart!");
+        $("#Alert").show();
+        $("#Alert").text("Error while Adding To Cart!");
         setTimeout(() => {
-            $("#CartAlert").css("display", "none");
+            $("#Alert").hide();
         }, 1500)
     }
 }

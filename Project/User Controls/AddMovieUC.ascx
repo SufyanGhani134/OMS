@@ -6,7 +6,7 @@
     <div class="d-flex w-100 justify-content-center">
         <div class="d-flex w-25 align-items-center">
            <label for="movieTitle"><strong>Title :</strong></label>
-           <asp:TextBox runat="server" type="text" class="form-control w-75 mx-2" id="movieTitle" placeholder="Movie Title">
+           <asp:TextBox runat="server" type="text" class="form-control w-75 mx-2" id="movieTitle" placeholder="Movie Title" >
            </asp:TextBox>
         </div>
         <div class="d-flex w-25 align-items-center">

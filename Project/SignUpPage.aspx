@@ -3,9 +3,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <div class="container text-light d-flex flex-column align-items-center mt-4">
-        <div class="alert w-75 alert-danger alert-dismissible fade show" role="alert" id="SignUpAlert" style="display:none;" >
-            <strong>Holy guacamole!</strong> You should check in on some of those fields below.
-        </div>
         <h1>Sign Up</h1>
         <div class="d-flex w-75 justify-content-between p-3">
             <div class="form-group inputGroup">

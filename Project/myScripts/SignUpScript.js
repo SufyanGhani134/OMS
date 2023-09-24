@@ -26,9 +26,9 @@
         } catch (error) {
             isValid= false
             $("#SignUpAlert").text(error);
-            $("#SignUpAlert").css("display", "block");
+            $("#Alert").show();
             setTimeout(() => {
-                $("#SignUpAlert").css("display", "none");
+                $("#Alert").hide();
             }, 1500)
          }
         let user = { firstName, lastName, dob, email, password }
@@ -46,19 +46,19 @@
             dataType: "json",
             success: function (response) {
                 if (response.d === "User Already Exits!") {
-                    $("#SignUpAlert").css("display", "block");
-                    $("#SignUpAlert").text(response.d);
+                    $("#Alert").show();
+                    $("#Alert").text(response.d);
                     setTimeout(() => {
-                        $("#Alert").css("display", "none");
+                        $("#Alert").hide();
                     }, 1500)
                 } else {
                     $("#logInModal").modal('show')
                     $("#Alert").removeClass("alert-danger");
                     $("#Alert").addClass("alert-success");
-                    $("#Alert").css("display", "block");
+                    $("#Alert").show();
                     $("#Alert").text("User Sign-Up successfully! Please Log In Now!");
                     setTimeout(() => {
-                        $("#Alert").css("display", "block");
+                        $("#Alert").hide();
                     }, 1000)
                 }
             },

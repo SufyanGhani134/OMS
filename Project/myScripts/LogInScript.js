@@ -13,10 +13,10 @@
             dataType: "json",
             success: function (response) {
                 if (response.d == 0) {
-                    $("#Alert").css("display", "block");
-                    $("#Alert").text("InValid Email or Password!");
+                    $("#logInAlert").show();
+                    $("#logInAlert").text("InValid Email or Password!");
                     setTimeout(() => {
-                        $("#Alert").css("display", "none");
+                        $("#logInAlert").hide();
                     }, 1500)
                 }
                 else {

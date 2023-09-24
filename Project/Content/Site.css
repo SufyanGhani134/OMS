@@ -20,6 +20,13 @@
         border-radius: 10px;
         max-width: fit-content;
 }
+#Alert.fixed-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
