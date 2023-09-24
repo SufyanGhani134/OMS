@@ -57,8 +57,8 @@
        </div>
 
     </div>
-    <script src='<%=ResolveClientUrl("~/myScripts/getCartIDScript.js") %>' 
+    <script src='<%=ResolveClientUrl("~/myScripts/GetCartID.js") %>' 
     type="text/javascript"></script>
-    <script src='<%=ResolveClientUrl("~/myScripts/GetCartScript.js?v=1.2") %>' 
+    <script src='<%=ResolveClientUrl("~/myScripts/GetCartAndCheckOut.js") %>' 
     type="text/javascript"></script>
 </asp:Content>

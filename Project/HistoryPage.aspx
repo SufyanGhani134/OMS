@@ -37,7 +37,7 @@
         </div>
         
     </div>
-    <script src='<%=ResolveClientUrl("~/myScripts/getCartIDScript.js") %>' 
+    <script src='<%=ResolveClientUrl("~/myScripts/GetCartID.js") %>' 
     type="text/javascript"></script>
     <script src='<%=ResolveClientUrl("~/myScripts/GetHistory.js") %>' 
     type="text/javascript"></script>
