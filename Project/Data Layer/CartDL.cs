@@ -135,7 +135,7 @@ namespace Project.Data_Layer
                 {
                     SqlCommand command = new SqlCommand("RemoveCartItem", con);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@cartID", cartItemID);
+                    command.Parameters.AddWithValue("@cartItemID", cartItemID);
 
                     con.Open();
                     command.ExecuteNonQuery();
@@ -176,7 +176,6 @@ namespace Project.Data_Layer
                    + " is encountered in GetCartItems in DL due to "
                    + exception.Message, exception.InnerException);
             }
-
         }
 
         public DataTable GetCartId(int userID)

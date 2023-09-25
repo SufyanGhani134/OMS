@@ -1,5 +1,4 @@
 ﻿$(document).ready( function () {
-    console.log("----")
     let totalCost = 0;
     let cartItems = [];
     let checkedItems = [];
@@ -11,7 +10,7 @@
         let userID = url.split("/")[4];
         
         calculateTotal(cartItems);
-        $("#checkOutBtn").html("Check out (" + totalCost + ")");
+        $("#checkOutBtn").val("Check out (" + totalCost + ")");
         try {
              CartID = await getCartID(userID);
             $.ajax({
@@ -26,7 +25,6 @@
                         if (!item.isCheck) {
                             cartItems.push(item)
                         }
-                        console.log("Getting Cart Items")
                     })
                     
                     for (let i = 0; i < cartItems.length; i++) {
@@ -35,6 +33,10 @@
                         $(`#itemCheck_${cartItems[i].itemId}`).on('change', function () {
                             changeStatus(cartItems[i], this.checked);
                         });
+
+                        $(`#removeBtn_${cartItems[i].itemId}`).click(function () {
+                            RemoveFromCart(cartItems[i]);
+                        })
 
                     }
 
@@ -62,6 +64,9 @@
                   <td>${item.title}</td>
                   <td>${item.generatedDate}</td>
                   <td>$ ${item.unitCost}</td>
+                  <td>
+                    <button class="btn btn-warning removeBtn" id="removeBtn_${item.itemId}"> Remove From Cart</button>
+                  </td>
             </tr>
         `
     }
@@ -73,7 +78,7 @@
                 totalCost += item.unitCost;
             })
         }
-        $("#checkOutBtn").html("Check out (" + totalCost + ")");
+        $("#checkOutBtn").val("Check out (" + totalCost + ")");
 
     }
     function changeStatus(item, isChecked) {
@@ -87,7 +92,25 @@
 
         calculateTotal(checkedItems);
     }
-    
+    function RemoveFromCart(item) {
+        console.log(item);
+        let removeId = item.itemId;
+        $.ajax({
+            type: "POST",
+            url: "/CartPage.aspx/RemoveCartItem",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ cartItemID: removeId }),
+            dataType: "json",
+            success: function (response) {
+                console.log(response.d);
+            },
+            error: function (error) {
+                console.log(error, "this is the POST error");
+            }
+        })
+    }
+
+
     $("#checkOutBtn").click(() => { CheckOut() })
 
     function CheckOut() {

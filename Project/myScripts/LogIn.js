@@ -28,6 +28,9 @@
                 $("#Alert").css("display", "block");
                 console.log(error, "this is the error");
                 $("#Alert").addClass("alert-danger").text("An error occurred during log-In.");
+                setTimeout(() => {
+                    $("#Alert").hide();
+                }, 1500)
 
             }
         });

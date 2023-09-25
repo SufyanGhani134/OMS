@@ -55,6 +55,6 @@
             </asp:Button>
         </div>
      </div>
-    <script src="myScripts/SignUp.js"></script>
+    <script src="myScripts/SignUp.js?v=1"></script>
 
 </asp:Content>

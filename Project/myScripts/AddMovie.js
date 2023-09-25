@@ -71,7 +71,6 @@
         }
 
         let movie = { UserID, title, ReleaseYear: parseInt(ReleaseYear), description, genres, duration, price: parseFloat(price), ratings: parseFloat(ratings), poster, resolutions }
-        console.log(movie)
         if (isValidMovie) {
             $.ajax({
                 type: "POST",
@@ -82,20 +81,21 @@
                 success: function (response) {
                     console.log(response.d)
                     if (!response.d) {
-                        $("#AddMovieAlert").css("display", "block");
-                        $("#AddMovieAlert").text("Error!")
+                        $("#Alert").css("display", "block");
+                        $("#Alert").text("Error!")
                         setTimeout(() => {
-                            $("#AddMovieAlert").css("display", "none");
+                            $("#Alert").css("display", "none");
                         }, 1500)
-                        emptyFields();
                     } else {
-                        $("#AddMovieAlert").removeClass("alert-danger");
-                        $("#AddMovieAlert").addClass("alert-success");
-                        $("#AddMovieAlert").css("display", "block");
-                        $("#AddMovieAlert").text("Movie Added successfully!");
+                        emptyFields();
+                        $("#Alert").removeClass("alert-danger");
+                        $("#Alert").addClass("alert-success");
+                        $("#Alert").show();
+                        $("#Alert").text("Movie Added successfully!");
                         setTimeout(() => {
-                            $("#Alert").css("display", "block");
+                            $("#Alert").hide()
                         }, 1000)
+
                     }
 
                 },

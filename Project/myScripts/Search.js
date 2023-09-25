@@ -1,10 +1,9 @@
 ﻿let searchGenres = [];
 $(document).ready(function () {
     $("#searchBtn").click(() => {
-        console.log("clicking!!")
+
         let searchTitle = $("#SearchInput").val();
 
-        console.log(searchTitle);
         $.ajax({
             type: "GET",
             url: "/Default.aspx/GetSearchMovies",
@@ -59,42 +58,5 @@ $(document).ready(function () {
             }
         });
 
-    }
-
-    $("#suggestTab").click(() => {
-        getSuggestMovies();
-    })
-    function getSuggestMovies() {
-
-        let url = window.location.href
-        let userID = url.split("/")[4];
-        console.log(userID)
-        if (typeof userID === "undefined") {
-            console.log("here")
-            $("#CartAlert").css("display", "block");
-            $("#CartAlert").text("Please Log In First!");
-            setTimeout(() => {
-                $("#CartAlert").css("display", "none");
-            }, 1500)
-            return;
-        }
-
-
-            $.ajax({
-                type: "GET",
-                url: "/UserPage.aspx/GetSuggestMovies",
-                data: { userID: userID },
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (response) {
-                    console.log(response.d, "Suggested Movies")
-                    DisplayMovies(response.d);
-
-                },
-                error: function (error) {
-                    console.log(error, "this is the error");
-
-                }
-            })
     }
 })

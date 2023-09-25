@@ -102,7 +102,7 @@ BEGIN
 	SELECT @PKID AS PKID
 END
 
- execute AddMovie 9, 'A', 'asdf', 23, 'asdfgdgf', '2:3', 5, 4
+
 
 ----Add Genres in Genres Table
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[AddGenre]'))
@@ -133,7 +133,7 @@ AS
 BEGIN
 	INSERT INTO MovieGenre (movieID, genreID) VALUES (@movieID,( SELECT G.genreID FROM  Genres G WHERE G.title = @genre));
 END
-execute AddMovieGenre 'comedy', 1
+
 
 ---Add To MovieResolution Table
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[AddMovieResolution]'))
@@ -149,7 +149,7 @@ BEGIN
 END
 
 
-execute AddMovieResolution 1, '720p'
+
 
 ---Get All Movies
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[GetAllMovies]'))
@@ -161,7 +161,7 @@ AS
 BEGIN 
 	SELECT * FROM Movies
 END
-execute GetAllMovies
+
 
 ---Get Admin Movies
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[GetAdminMovies]'))
@@ -186,7 +186,7 @@ AS
 BEGIN 
 	SELECT genreID FROM MovieGenre WHERE movieID = @movieID
 END
-execute GetGenreIDs 2
+
 
 
 ---Get AllGenres of a movie
@@ -260,7 +260,7 @@ BEGIN
 	END
 	SELECT @isValid AS isValid;
 END
-execute RemoveMovies 9, 3;
+
 ---Update Admin Movies
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[UpdateMovie]'))
 	DROP PROCEDURE UpdateMovie
@@ -271,7 +271,7 @@ GO
 		@movieID INT,
 		@title VARCHAR(50),
 		@poster NVARCHAR(MAX),
-		@releaseYear DATE,
+		@releaseYear INT,
 		@description VARCHAR(500),
 		@duration TIME,
 		@price FLOAT,
@@ -341,7 +341,7 @@ GO
 	CREATE PROCEDURE AddCart
 		@userID INT,
 		@totalCost FLOAT,
-		@generatedDate DATE,
+		@generatedDate DATETIME,
 		@PKID int output
 AS
 BEGIN 
@@ -438,6 +438,20 @@ BEGIN
     WHERE cartItemID = @cartItemID
 END
 
+--Update Cart
+IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[UpdateCart]'))
+	DROP PROCEDURE UpdateCart
+GO
+	CREATE PROCEDURE UpdateCart
+	@cartID INT,
+	@totalCost FLOAT
+AS
+BEGIN
+	UPDATE Cart
+    SET totalCost = @totalCost
+    FROM Cart 
+    WHERE cartID = @cartID
+END
 
 ---Add Search History
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[AddSearchHistory]'))
@@ -465,7 +479,7 @@ BEGIN
 	DELETE FROM SearchHistory WHERE userID = @userID;
 END
 
-execute ClearSearch 4
+
 
 ---GetSearch
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[GetSearch]'))
@@ -492,7 +506,7 @@ BEGIN
     INSERT INTO #TempGenres (genre)
     SELECT DISTINCT genre
     FROM SearchHistory
-    WHERE userID = 1;
+    WHERE userID = @userID;
 
 
     CREATE TABLE #TempGenreID (genreID INT);
@@ -518,7 +532,8 @@ BEGIN
     DROP TABLE #TempMovieID;
 END
 
-Execute Suggestions 1
+
+
 
 ---Add Admin
 INSERT INTO Users(firstName, lastName, dob, email, password, roleID)

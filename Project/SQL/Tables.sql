@@ -1,8 +1,7 @@
 IF NOT EXISTS (SELECT 1 FROM sys.databases WHERE OBJECT_ID('OnlineMovieSystem') IS NULL)
 BEGIN
     CREATE DATABASE OnlineMovieSystem;
-END;
-
+END
 
 use OnlineMovieSystem;
 
@@ -136,7 +135,7 @@ BEGIN
 	(
 		cartID INT IDENTITY(1,1) PRIMARY KEY,
 		totalCost FLOAT,
-		GeneratedDate DATE,
+		GeneratedDate DATETIME,
 		userID INT,
 		FOREIGN KEY (userID) REFERENCES Users(userID)
 	)
@@ -154,7 +153,7 @@ BEGIN
 		title VARCHAR(50) NOT NULL,
 		poster NVARCHAR(MAX),
 		unitCost FLOAT NOT NULL,
-		generatedDate DATETIME NOT NULL,
+		generatedDate VARCHAR(50)NOT NULL,
 		isCheck BIT,
 		cartID INT,
 		FOREIGN KEY (cartID) REFERENCES Cart(cartID)

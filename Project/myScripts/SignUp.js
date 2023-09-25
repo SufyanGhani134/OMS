@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-    console.log("running!")
 
     var currentDate = new Date().toISOString().split("T")[0];
     $("#dob").attr("max", currentDate);
@@ -19,13 +18,14 @@
             if (firstName.length == 0) { throw "First Name required!" }
             if (lastName.length == 0) { throw "Last Name required!" };
             if (!nameExp.test(fname) || !nameExp.test(lname)) {throw "First and Last Name must contain only alphabets!" }
+            if (dob == "") {throw "Date of birth is required!" }
             if (email.length == 0) { throw "Email required!" };
             if (!emailExp.test(email)) {throw "Email must be of format abc@example.com!" }
             if (password.length < 8) { throw "Password must be atleast 8 characters" }
             if (password != confirmPass) { throw "Password donot match!" }
         } catch (error) {
-            isValid= false
-            $("#SignUpAlert").text(error);
+            isValid = false
+            $("#Alert").text(error);
             $("#Alert").show();
             setTimeout(() => {
                 $("#Alert").hide();

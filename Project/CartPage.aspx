@@ -34,7 +34,7 @@
         </table>
         <div>
             <asp:Button runat="server" type="button" id="checkOutBtn" data-bs-toggle="modal" data-bs-target="#receiptBtn"
-                class="btn btn-primary w-100" Text="Check out" OnClientClick="return false">
+                class="btn btn-primary w-100"  OnClientClick="return false">
                 
             </asp:Button>
         </div>

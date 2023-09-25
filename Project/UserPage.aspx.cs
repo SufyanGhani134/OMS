@@ -34,10 +34,8 @@ namespace Project
             {
                 Response.Redirect("/Home");
             }
-            
-        }
-        
 
+        }
 
         [WebMethod(EnableSession = true)]
         public static int UserLogIn(string Email, string Password)
@@ -68,6 +66,7 @@ namespace Project
             {
                 BL userBL = new BL();
                 User loggedUser = userBL.GetUser(UserID);
+                
                 string response = JsonConvert.SerializeObject(loggedUser);
                 return response;
             }
@@ -154,27 +153,6 @@ namespace Project
             }
         }
 
-        [WebMethod]
-        [ScriptMethod(UseHttpGet = true)]
-        public static List<Object> GetSuggestMovies(int userID)
-        {
-            try
-            {
-                BL movieBL = new BL();
-                List<Movie> movies = movieBL.GetSuggestMovies(userID);
-                List<Object> response = new List<Object>();
-                foreach (Movie movie in movies)
-                {
-                    response.Add((Object)movie);
-                }
-                return response;
-            }
-            catch (Exception exception)
-            {
-                throw new Exception("An exception of type " + exception.GetType().ToString()
-                   + " is encountered in UserPage due to "
-                   + exception.Message, exception.InnerException);
-            }
-        }
+        
     }
 }

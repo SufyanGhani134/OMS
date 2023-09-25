@@ -91,5 +91,23 @@ namespace Project
                    + exception.Message, exception.InnerException);
             }
         }
+
+        [WebMethod]
+        public static string RemoveCartItem(int cartItemID)
+        {
+            try
+            {
+                BL cartBL = new BL();
+                cartBL.RemoveCartItem(cartItemID);
+
+                return "item removed successfully!";
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in LogInPage due to "
+                   + exception.Message, exception.InnerException);
+            }
+        }
     }
 }

@@ -67,7 +67,7 @@ namespace Project.Business_Layer
                             }
                         }
                         DL resolutionDL = new DL();
-                        DataTable resolutionIDs = resolutionDL.GetResolutions(movie.movieId);
+                        DataTable resolutionIDs = resolutionDL.GetResolutionIDs(movie.movieId);
                         foreach (DataRow resolutionIDRow in resolutionIDs.Rows)
                         {
                             DataTable resolutions = resolutionDL.GetResolutions(Convert.ToInt32(resolutionIDRow["resolutionID"]));

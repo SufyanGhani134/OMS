@@ -17,7 +17,7 @@
                 type: "GET",
                 url: "/CartPage.aspx/GetCartItems",
                 contentType: "application/json; charset=utf-8",
-                data: { cartID: userID },
+                data: { cartID: CartID },
                 dataType: "json",
                 success: function (response) {
                     console.log(response.d)

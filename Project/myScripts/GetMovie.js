@@ -5,7 +5,6 @@
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         success: function (response) {
-            console.log(response.d)
             let movies = response.d;
             DisplayMovies(movies);
             

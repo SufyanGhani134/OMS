@@ -2,14 +2,12 @@
     let url = window.location.href
     let userID = url.split("/")[4];
     let role = url.split("/")[3];
-    console.log(url.split("/"))
     $("#CartLink").click(() => {
         if (typeof userID === "undefined" || userID.trim() === "") {
-            console.log("here")
-            $("#CartAlert").css("display", "block");
-            $("#CartAlert").text("Please Log In First!");
+            $("#Alert").text("Please Log In First!");
+            $("#Alert").show();
             setTimeout(() => {
-                $("#CartAlert").css("display", "none");
+                $("#Alert").hide();
             }, 1500)
             return;
         } else if (role == "Admin") {
@@ -20,7 +18,7 @@
     })
     $("#homeLink").click(() => {
         if (typeof userID === "undefined" || userID.trim() === "") {
-            window.location.href = "Home"
+            window.location.href = "Home";
         } else if (role == "Admin") {
             window.location.href = `/Admin/${userID}/Home`
         }
@@ -28,9 +26,28 @@
             window.location.href = `/UserPage/${userID}/Home`
         }
     })
+    $("#suggestTab").click(() => {
+        if (typeof userID === "undefined" || userID.trim() === "") {
+            $("#Alert").text("Please Log In First!");
+            $("#Alert").show();
+            setTimeout(() => {
+                $("#Alert").hide();
+            }, 1500)
+            return;
+        } else if (role == "Admin") {
+            window.location.href = `/Admin/${userID}/Suggestions`
+        } else {
+            window.location.href = `/UserPage/${userID}/Suggestions`
+        }
+    })
     $("#historyTab").click(() => {
         if (typeof userID === "undefined" || userID.trim() === "") {
-            window.location.href = "Home"
+            $("#Alert").text("Please Log In First!");
+            $("#Alert").show();
+            setTimeout(() => {
+                $("#Alert").hide();
+            }, 1500)
+            return;
         } else if (role == "Admin") {
             window.location.href = `/Admin/${userID}/History`
         } else {
