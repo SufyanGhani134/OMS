@@ -15,9 +15,8 @@
         .cartTable td{ 
             border: solid 1px;
         }
-    </style>
-    <h1>Cart Page</h1> 
-    <div class="container text-light">
+    </style> 
+    <div class="container text-light" id="movieContainer">
         <table class="cartTable">
            <thead>
                 <tr>

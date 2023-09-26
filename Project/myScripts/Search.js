@@ -3,7 +3,7 @@ $(document).ready(function () {
     $("#searchBtn").click(() => {
 
         let searchTitle = $("#SearchInput").val();
-
+        
         $.ajax({
             type: "GET",
             url: "/Default.aspx/GetSearchMovies",
@@ -17,7 +17,6 @@ $(document).ready(function () {
                     DisplayMovies(searchMovies);
                     let url = window.location.href
                     let userID = url.split("/")[4];
-                    console.log(userID)
                     if (typeof userID !== "undefined") {
                         searchMovies.forEach((movie) => {
                             movie.genres.forEach((genre) => {
@@ -25,7 +24,9 @@ $(document).ready(function () {
                             })
                         })
                         console.log(searchGenres)
-                        AddSeacrhHistory(userID, searchGenres);
+                        if (searchTitle.length != 0) {
+                            AddSeacrhHistory(userID, searchGenres);
+                        }
                     }
                 } else {
                     $("#movieContainer").html('<h1 class="text-light">No Results Found!!</h1>');

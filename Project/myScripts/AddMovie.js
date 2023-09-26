@@ -53,12 +53,12 @@
 
         try {
             if (title == "") { throw "Movie Title Required!" }
-            if (isNaN(ReleaseYear) || ReleaseYear == "" ) { throw "Movie Release Year Required or Invalid Input!" }
+            if (isNaN(ReleaseYear) || ReleaseYear == "" || ReleaseYear <= 0) { throw "Movie Release Year Required or Invalid Input!" }
             if (duration == "") { throw "Movie Duration is Required!" }
-            if (isNaN(ratings) || ratings == "") { throw "Movie Ratings Required!" }
+            if (isNaN(ratings) || ratings == "" || ReleaseYear <= 0) { throw "Movie Ratings Required!" }
             if (description == "") { throw "Movie description is Required!" }
             if (poster == "") { throw "Movie Poster is Required!" }
-            if (isNaN(price) || price == "") { throw "Movie Price Required or Invalid Input!" }
+            if (isNaN(price) || price == "" || price <=0) { throw "Movie Price Required or Invalid Input!" }
             if (genres.length == 0) { throw "Movie Genre(s) Required!" }
             if (resolutions.length == 0) { throw "Movie Resolution(s) Required!" }
         } catch (error) {

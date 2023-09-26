@@ -16,12 +16,15 @@
             border: solid 1px;
         }
     </style>
-    <h1>Cart Page</h1> 
-    <div class="container text-light">
+    <div class="container text-light" id="movieContainer">
         <table class="cartTable">
            <thead>
                 <tr>
-                  <th scope="col">#</th>
+                  <th scope="col">
+                       <div>
+                        <input class="form-check-input" type="checkbox" id="checkAll" value="" aria-label="...">
+                    </div>
+                  </th>
                   <th scope="col">poster</th>
                   <th scope="col">Movie Title</th>
                   <th scope="col">Checked In Date</th>
@@ -45,8 +48,34 @@
                     <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                  <div class="modal-body" id="receiptBody">
-                      <p>Body</p>
+                  <div class="modal-body" >
+                      <table class="text-dark w-100">
+                          <thead class="border border-1">
+                              <tr>
+                                 <th>#</th>
+                                <th>Movie Title</th>
+                                <th>Price</th>
+                              </tr>
+                          </thead>
+                          <tbody class="border border-1" id="receiptBody">
+
+                          </tbody>
+                      </table>
+                      <div class="w-100 text-dark px-3 mt-5">
+                          <div class=" d-flex justify-content-between px-5">
+                            <p>Total :</p>
+                            <h5 id="total"></h5>
+                          </div>
+                          <div class=" d-flex justify-content-between px-5">
+                              <p>Bought By : </p>
+                              <h5 id="boughtBy"></h5>
+                          </div>
+                          <div class=" d-flex justify-content-between px-5">
+                              <p>Bought At: </p>
+                              <h5 id="boughtAt"></h5>
+                          </div>
+                      </div>
+                      
                     
                   </div>
                   <div class="modal-footer">
@@ -59,6 +88,6 @@
     </div>
     <script src='<%=ResolveClientUrl("~/myScripts/GetCartID.js") %>' 
     type="text/javascript"></script>
-    <script src='<%=ResolveClientUrl("~/myScripts/GetCartAndCheckOut.js") %>' 
+    <script src='<%=ResolveClientUrl("~/myScripts/GetCartAndCheckOut.js?v=1.3") %>' 
     type="text/javascript"></script>
 </asp:Content>

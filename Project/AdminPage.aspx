@@ -2,5 +2,5 @@
 <%@ Register Src="~/User Controls/AddMovieUC.ascx" TagPrefix="UC" TagName="MovieForm" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <UC:MovieForm runat="server"></UC:MovieForm>
-    <script src='<%=ResolveClientUrl("myScripts/AddMovie.js") %>'></script>
+    <script src='<%=ResolveClientUrl("myScripts/AddMovie.js?v=1") %>'></script>
 </asp:Content>

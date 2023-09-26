@@ -33,9 +33,10 @@
     border-radius: 10px;
     }
 </style>
-    <div id="movieContainer" class="d-flex justify-content-evenly flex-wrap my-3">
+    <UC:MovieCard runat="server" id="MovieUC" />
+    <%--<div id="movieContainer" class="d-flex justify-content-evenly flex-wrap my-3">
 
-    </div>
+    </div>--%>
     <script src='<%=ResolveClientUrl("~/myScripts/GetMovie.js") %>' 
     type="text/javascript"></script>
     <script src='<%=ResolveClientUrl("~/myScripts/AddCart.js") %>' 

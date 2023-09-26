@@ -18,7 +18,7 @@ namespace Project
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Page.Master.FindControl("signUpBtn").Visible = false;
         }
 
         [WebMethod]

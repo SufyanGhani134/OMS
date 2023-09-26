@@ -15,7 +15,21 @@ namespace Project
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            int isLoggedIn = Convert.ToInt32(HttpContext.Current.Session["IsLoggedIn"]);
+            string currentUrl = System.Web.HttpContext.Current.Request.Url.AbsoluteUri;
+            string[] userIDArr = currentUrl.Split(new char[] { '/' });
+            if (userIDArr.Length > 4)
+            {
+                int userID = Convert.ToInt32(userIDArr[4]);
+                if (userID != isLoggedIn)
+                {
+                    Response.Redirect("/Home");
+                }
+            }
+            else
+            {
+                Response.Redirect("/Home");
+            }
         }
         [WebMethod]
         [ScriptMethod(UseHttpGet = true)]

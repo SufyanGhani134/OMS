@@ -1,18 +1,25 @@
 ﻿function DisplayMovies(movies) {
     $("#movieContainer").html("");
-    for (let i = 0; i < movies.length; i++) {
-        $("#movieContainer").append(DisplayMovieCard(movies[i]));
-        movies[i].genres.forEach((genre) => {
-            DisplayGenre(genre, movies[i].movieId);
-        })
-        movies[i].resolutions.forEach((resolution) => {
-            DisplayResolutions(resolution, movies[i].movieId);
-        })
-        $(`#CartBtn_${movies[i].movieId}`).click(function (e) {
-            e.preventDefault();
-            AddToCart(movies[i])
-        })
+
+    if (movies.length > 0) {
+        for (let i = 0; i < movies.length; i++) {
+            $("#movieContainer").append(DisplayMovieCard(movies[i]));
+            movies[i].genres.forEach((genre) => {
+                DisplayGenre(genre, movies[i].movieId);
+            })
+            movies[i].resolutions.forEach((resolution) => {
+                DisplayResolutions(resolution, movies[i].movieId);
+            })
+            $(`#CartBtn_${movies[i].movieId}`).click(function (e) {
+                e.preventDefault();
+                AddToCart(movies[i])
+            })
+        }
+    } else {
+        $("#movieContainer").html('<h1 class="text-light">No Results Found!!</h1>');
+
     }
+    
 }
 function DisplayGenre(genre, movieId) {
     $(`#genreList_${movieId}`).append(`<li>${genre}</li>`)
@@ -30,8 +37,11 @@ function DisplayMovieCard(movie) {
                   <div class="card-body">
                       <div class="d-flex justify-content-between align-items-center mb-4">
                           <h1 class="card-title">${movie.title}<sub>(${movie.ReleaseYear})</sub></h1>
-                          <strong>${movie.ratings}</strong>/10
                       </div>
+                           <div class="d-flex duration my-2 align-items-center">
+                            <strong class="text-dark">Ratings:</strong>
+                            <p class="m-0">${movie.ratings}/10</p>
+                          </div>
                           <div class="d-flex align-items-center">
                               <strong class="text-dark">Genres:</strong>
                               <ul class="d-flex flex-wrap cardList genreList m-0 align-items-center" id="genreList_${movie.movieId}">
@@ -54,7 +64,7 @@ function DisplayMovieCard(movie) {
                                 </p>
                           </div>
                           <div class="d-flex justify-content-between align-items-center mt-2">
-                            <button class="btn btn-warning text-light" id="CartBtn_${movie.movieId}" OnClientClick="return false">Add To Cart</button>        
+                            <button class="btn btn-warning text-light" id="CartBtn_${movie.movieId}">Add To Cart</button>        
                             <h2 class="text-warning">$ ${movie.price}</h2>
                           </div>
                   </div>

@@ -20,7 +20,6 @@
                     }, 1500)
                 }
                 else {
-                    console.log(response.d);
                     getUser(response.d);
                 }
             },
@@ -44,12 +43,13 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (response) {
-                console.log(response.d)
+                console.log(response.d, "user")
                 if (JSON.parse(response.d).Status == "Admin") {
                     window.location.href = `Admin/${userID}/Home`;
                 } else {
                     window.location.href = `UserPage/${userID}/Home`;
                 }
+                localStorage.setItem("user", response.d)
             },
             error: function (error) {
                 $("#Alert").css("display", "block");

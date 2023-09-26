@@ -21,7 +21,7 @@ BEGIN
 
 	Select @PKID as PKID
 END
-
+GO
 
 ---Email Validation (Email already exist)
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[EmailValidation]'))
@@ -40,7 +40,7 @@ BEGIN
 	ELSE SET @isUser = 0
 	SELECT @isUser AS isUser
 END
-
+GO
 
 ---User Validation
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[UserValidation]'))
@@ -64,6 +64,7 @@ BEGIN
 	SELECT @isValidUser AS isValidUser
 END
 
+GO
 
 ---Get User
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[GetUser]'))
@@ -76,7 +77,7 @@ AS
 BEGIN 
 	SELECT * FROM Users WHERE userID = @userID	
 END
-
+GO
 
 ---Add Movie
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[AddMovie]'))
@@ -101,7 +102,7 @@ BEGIN
 	SET @PKID = @@IDENTITY
 	SELECT @PKID AS PKID
 END
-
+GO
 
 
 ----Add Genres in Genres Table
@@ -120,7 +121,7 @@ BEGIN
 
 	IF @isGenre = 0 INSERT INTO Genres(title) VALUES (@genre);
 END
-
+GO
 
 ---Add To MovieGenre Table
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[AddMovieGenre]'))
@@ -133,7 +134,7 @@ AS
 BEGIN
 	INSERT INTO MovieGenre (movieID, genreID) VALUES (@movieID,( SELECT G.genreID FROM  Genres G WHERE G.title = @genre));
 END
-
+GO
 
 ---Add To MovieResolution Table
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[AddMovieResolution]'))
@@ -148,7 +149,7 @@ BEGIN
     
 END
 
-
+GO
 
 
 ---Get All Movies
@@ -161,7 +162,7 @@ AS
 BEGIN 
 	SELECT * FROM Movies
 END
-
+GO
 
 ---Get Admin Movies
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[GetAdminMovies]'))
@@ -174,7 +175,7 @@ AS
 BEGIN 
 	SELECT * FROM Movies where userID = @userID
 END
-
+GO
 ---Get GenreID of a MovieID
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[GetGenreIDs]'))
 	DROP PROCEDURE GetGenreIDs
@@ -187,7 +188,7 @@ BEGIN
 	SELECT genreID FROM MovieGenre WHERE movieID = @movieID
 END
 
-
+GO
 
 ---Get AllGenres of a movie
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[GetGenres]'))
@@ -200,7 +201,7 @@ AS
 BEGIN 
 	SELECT * FROM Genres WHERE genreID = @genreID
 END
-
+GO
 --Get All Genres
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[GetAllGenres]'))
 	DROP PROCEDURE GetAllGenres
@@ -211,7 +212,7 @@ AS
 BEGIN 
 	SELECT title FROM Genres;
 END
-
+GO
 ---GetResolutionIDs
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[GetResolutionIDs]'))
 	DROP PROCEDURE GetResolutionIDs
@@ -224,7 +225,7 @@ BEGIN
 	SELECT resolutionID FROM MovieResolution WHERE movieID = @movieID
 END
 
-
+GO
 
 ---GetResolution
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[GetResolutions]'))
@@ -238,7 +239,7 @@ BEGIN
 	SELECT title FROM Resolution WHERE resolutionID = @resolutionID
 END
 
-
+GO
 ---Remove Admin Movies
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[RemoveMovies]'))
 	DROP PROCEDURE RemoveMovies
@@ -260,7 +261,7 @@ BEGIN
 	END
 	SELECT @isValid AS isValid;
 END
-
+GO
 ---Update Admin Movies
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[UpdateMovie]'))
 	DROP PROCEDURE UpdateMovie
@@ -291,7 +292,7 @@ BEGIN
 	END
 	SELECT @isValid AS isValid;
 END
-
+GO
 ---Update To MovieGenre Table
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[UpdateMovieGenre]'))
 	DROP PROCEDURE UpdateMovieGenre
@@ -316,7 +317,7 @@ BEGIN
     WHERE G.title = @genre
     AND MovieGenre.movieID = @movieID;
 END
-
+GO
 --Update MovieResolution Table
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[UpdateMovieResolution]'))
 	DROP PROCEDURE UpdateMovieResolution
@@ -332,7 +333,7 @@ BEGIN
     WHERE R.title = @resolution
     AND MovieResolution.movieID = @movieID;
 END
-
+GO
 ---Add Cart
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[AddCart]'))
 	DROP PROCEDURE AddCart
@@ -364,7 +365,7 @@ BEGIN
 		Select @PKID as PKID
     END	
 END
-
+GO
 
 ---Add Cart Items
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[AddCartItems]'))
@@ -386,7 +387,7 @@ BEGIN
 	SET @PKID = @@IDENTITY
 	SELECT @PKID as PKID
 END
-
+GO
 ---Remove From Cart
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[RemoveCartItem]'))
 	DROP PROCEDURE RemoveCartItem
@@ -398,7 +399,7 @@ AS
 BEGIN 
 	DELETE FROM CartItems WHERE cartItemID = @cartItemID;
 END
-
+GO
 
 ---Get CartItems
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[GetCartItems]'))
@@ -411,7 +412,7 @@ AS
 BEGIN 
 	SELECT * FROM CartItems WHERE cartID = @cartID
 END
-
+GO
 --GetCartId
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[GetCartId]'))
 	DROP PROCEDURE GetCartId
@@ -423,7 +424,7 @@ AS
 BEGIN 
 	SELECT cartID FROM Cart WHERE userID = @userID
 END
-
+GO
 --Update Cart Item
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[UpdateCartItem]'))
 	DROP PROCEDURE UpdateCartItem
@@ -437,7 +438,7 @@ BEGIN
     FROM CartItems 
     WHERE cartItemID = @cartItemID
 END
-
+GO
 --Update Cart
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[UpdateCart]'))
 	DROP PROCEDURE UpdateCart
@@ -452,7 +453,7 @@ BEGIN
     FROM Cart 
     WHERE cartID = @cartID
 END
-
+GO
 ---Add Search History
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[AddSearchHistory]'))
 	DROP PROCEDURE AddSearchHistory
@@ -466,7 +467,7 @@ BEGIN
 	INSERT INTO SearchHistory (userID, genre)
 		VALUES(@userID, @genre)
 END
-
+GO
 ---Clear Search
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[ClearSearch]'))
 	DROP PROCEDURE ClearSearch
@@ -479,7 +480,7 @@ BEGIN
 	DELETE FROM SearchHistory WHERE userID = @userID;
 END
 
-
+GO
 
 ---GetSearch
 IF EXISTS (SELECT 1 FROM sys.procedures where OBJECT_ID = OBJECT_ID(N'[dbo].[GetSearch]'))
@@ -492,7 +493,7 @@ AS
 BEGIN 
 	SELECT * FROM Movies WHERE title LIKE '%' + @search + '%';
 END
-
+GO
 
 ---Suggestions
 IF EXISTS (SELECT 1 FROM sys.procedures WHERE OBJECT_ID = OBJECT_ID(N'[dbo].[Suggestions]'))
@@ -532,9 +533,3 @@ BEGIN
     DROP TABLE #TempMovieID;
 END
 
-
-
-
----Add Admin
-INSERT INTO Users(firstName, lastName, dob, email, password, roleID)
-	VALUES('Sufyan', 'Ghani', '1999-08-17', 'sufyan@admin.com', '0987654321', 1);

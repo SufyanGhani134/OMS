@@ -4,6 +4,7 @@
     let checkedItems = [];
     let CartID
     GetCartItems();
+    var loggedUser = JSON.parse(localStorage.getItem("user"));
     async function GetCartItems() {
 
         let url = window.location.href
@@ -26,7 +27,8 @@
                             cartItems.push(item)
                         }
                     })
-                    
+
+                    $("#totalItems").html(`(${cartItems.length})`)
                     for (let i = 0; i < cartItems.length; i++) {
                         $("#cartTableBody").append(displayCart(cartItems[i]));
 
@@ -51,6 +53,9 @@
     }
     function displayCart(item) {
 
+        let date = item.generatedDate.split("T")[0];
+        let time = item.generatedDate.split("T")[1].split(".")[0];
+
         return `
               <tr>
                   <td scope="row">
@@ -58,18 +63,37 @@
                         <input class="form-check-input cartCheck" type="checkbox" id="itemCheck_${item.itemId}" value="" aria-label="...">
                     </div>
                   </td>
+                  </td>
                   <td style="width:200px; height: 150px;">
                       <img src="/img/${item.poster}" style="width: 100%; height: 100%; display: block;"/>
                   </td>
                   <td>${item.title}</td>
-                  <td>${item.generatedDate}</td>
-                  <td>$ ${item.unitCost}</td>
+                  <td>${date}   ${time}</td>
+                  <td>$ ${item.unitCost} </td>
                   <td>
                     <button class="btn btn-warning removeBtn" id="removeBtn_${item.itemId}"> Remove From Cart</button>
                   </td>
             </tr>
         `
     }
+
+    $("#checkAll").click(function () {
+        console.log(cartItems)
+        if ($("#checkAll").prop("checked")) {
+            $(".cartCheck").each(function () {
+                $(this).prop("checked", true);
+            });
+        } else {
+            $(".cartCheck").each(function () {
+                $(this).prop("checked", false);
+            });
+        }
+
+        cartItems.forEach((item) => {
+            changeStatus(item, $("#checkAll").prop("checked"));
+        })
+    });
+
 
     function calculateTotal(cartItems) {
         totalCost = 0
@@ -111,7 +135,13 @@
     }
 
 
-    $("#checkOutBtn").click(() => { CheckOut() })
+    $("#checkOutBtn").click(() => {
+        CheckOut();
+        $("#total").html(totalCost);
+        $("#boughtBy").html(loggedUser.firstName + " " + loggedUser.lastName);
+        let date = new Date();
+        $("#boughtAt").html(date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear())
+    })
 
     function CheckOut() {
         const checkedIDs = checkedItems.map(item => item.itemId);
@@ -143,31 +173,28 @@
                 }
             })
 
-            checkedItems.forEach((item) => {
-                $("#receiptBody").append(DisplayReceipt(item))
+            checkedItems.forEach((item, index) => {
+                $("#receiptBody").append(DisplayReceipt(item, index))
             })
-            $("#checkOutBtn").attr("data - bs - toggle", "modal")
+            $("#checkOutBtn").attr("data-bs-toggle", "modal")
 
         } else {
             alert("select check box to buy items!")
         }
         
 
-        function DisplayReceipt(item) {
+        function DisplayReceipt(item, index) {
             let generatedDate = new Date();
             return `
-            <div class="card my-2">
-                          <div class="card-header">
-                            Price: ${item.unitCost}
-                          </div>
-                          <div class="card-body">
-                            <h5 class="card-title">${item.title}</h5>
-                            <p>Bought At:</p>
-                            <p class="card-text">${generatedDate}</p>
-                          </div>
-            </div>
+            <tr>
+                <td class="p-2">${index+1}</td>
+                <td class="p-2">${item.title}</td>
+                <td class="p-2">${item.unitCost}</td>
+            </tr>
             `
         }
+
     }
-    
+
+  
 })
