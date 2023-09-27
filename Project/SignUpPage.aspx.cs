@@ -16,30 +16,35 @@ namespace Project
 {
     public partial class SignUpPage : System.Web.UI.Page
     {
+        public bool isValid;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.Master.FindControl("signUpBtn").Visible = false;
         }
 
-        [WebMethod]
-        public static string SignUp(string user)
+
+        protected void SignUpBtn_Click(object sender, EventArgs e)
         {
-            JObject User = JObject.Parse(user);
-            User newUser = User.ToObject<User>();
+            User user = new User();
+            user.firstName = fname.Text;   
+            user.lastName = lname.Text;
+            user.dob = Convert.ToDateTime(dob.Text);
+            user.Email = email.Text;
+            user.Password = password.Text;
 
-            try {
-                BL userBL = new BL();
-                string response = userBL.InsertUser(newUser);
-
-                return response;
-            }catch (Exception exception)
+            string response = user.SignUp(user);
+            if (response == "User Already Exists!")
             {
-                throw new Exception("An exception of type " + exception.GetType().ToString()
-                   + " is encountered in SignUPPage due to "
-                   + exception.Message, exception.InnerException);
+                isValid = false;
             }
-             
+            else
+            {
+                isValid = true;
+            }
+
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString(),
+                  "ShowAlert('" + isValid + "');", true);
         }
-        
     }
 }

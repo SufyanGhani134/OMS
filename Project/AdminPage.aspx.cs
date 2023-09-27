@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Script.Services;
 using System.Web.Services;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace Project
@@ -16,31 +17,58 @@ namespace Project
     public partial class AdminPage : System.Web.UI.Page
     {
         public string genre;
+        public List<string> SelectedResolutions;
         protected void Page_Load(object sender, EventArgs e)
         {
-            int isLoggedIn = Convert.ToInt32(HttpContext.Current.Session["IsLoggedIn"]);
-            string currentUrl = System.Web.HttpContext.Current.Request.Url.AbsoluteUri;
-            string[] userIDArr = currentUrl.Split(new char[] { '/' });
-            if (userIDArr.Length > 4)
+            if(!IsPostBack)
             {
-                int userID = Convert.ToInt32(userIDArr[4]);
-                if (userID != isLoggedIn)
+                if(Session["loggedUser"] != null)
                 {
-                    Response.Redirect("/Home");
+                    Page.Master.FindControl("SignUpBtn").Visible = false;
+                    Page.Master.FindControl("logInBtn").Visible = false;
+                    Page.Master.FindControl("logOutBtn").Visible = true;
                 }
                 else
                 {
-                    Page.Master.FindControl("signUpBtn").Visible = false;
-                    Page.Master.FindControl("logInBtn").Visible = false;
-                    Page.Master.FindControl("logOutBtn").Visible = true;
-
+                    Response.Redirect("/Home");
                 }
-            }
-            else
-            {
-                Response.Redirect("/Home");
+                getResolution();
             }
         }
+        public void getResolution()
+        {
+            List<string> resolutions = new List<string>();
+            foreach (var item in Enum.GetValues(typeof(Resolution.resolution)))
+            {
+                if (item is Resolution.resolution resolutionEnumValue)
+                {
+                    var enumField = resolutionEnumValue.GetType().GetField(resolutionEnumValue.ToString());
+                    var attributes = enumField.GetCustomAttributes(typeof(EnumStringValueAttribute), false);
+
+                    if (attributes.Length > 0)
+                    {
+                        var stringValueAttribute = (EnumStringValueAttribute)attributes[0];
+                        resolutions.Add(stringValueAttribute.Value);
+                    }
+                }
+            }
+            foreach (var item in resolutions)
+            {
+                var itemList = new ListItem
+                {
+                    Text = item.ToString()
+                };
+                ResolutionList.Items.Add(itemList);
+            }
+        }
+
+        public List<string> getGenres()
+        {
+            BL genreBL = new BL();
+            List<string> genres = genreBL.GetAllGenres();
+            return genres;
+        }
+
 
         [WebMethod]
         [ScriptMethod(UseHttpGet = true)]
@@ -50,37 +78,51 @@ namespace Project
             {
                 BL genreBL = new BL();
                 List<string> response = genreBL.GetAllGenres();
-                //string response = JsonConvert.SerializeObject(genres);
+
                 return response;
             }
             catch (Exception exception)
             {
                 throw new Exception("An exception of type " + exception.GetType().ToString()
-                   + " is encountered in AdminPage due to "
+                   + " is encountered in LogInPage due to "
                    + exception.Message, exception.InnerException);
             }
         }
 
-        [WebMethod]
-        public static string AddMovie(string movie)
+        protected void addMovie_Click(object sender, EventArgs e)
         {
-            JObject Movie = JObject.Parse(movie);
-
-            Movie newMovie = Movie.ToObject<Movie>();
-            try
+            Movie newMovie = new Movie();
+            newMovie.title = movieTitle.Text;
+            newMovie.ReleaseYear = Convert.ToInt32(releaseYear.Text);
+            newMovie.resolutions = new List<string>();
+            foreach (ListItem item in ResolutionList.Items)
             {
-                BL movieBL = new BL();
-                string response = movieBL.AddMovie(newMovie);
-                return response;
+                if (item.Selected)
+                {
+                    newMovie.resolutions.Add(item.Text);
+                }
             }
-            catch (Exception exception)
+
+
+            newMovie.duration = hrs.Text + ":" + mins.Text;
+            newMovie.ratings = float.Parse(rating.Text);
+            newMovie.description = description.InnerText;
+            newMovie.poster = poster.FileName;
+            newMovie.price = float.Parse(price.Text);
+            newMovie.resolutions = new List<string>();
+
+            newMovie.genres = new List<string>();
+            foreach (Control control in selectedGenres.Controls)
             {
-                throw new Exception("An exception of type " + exception.GetType().ToString()
-                   + " is encountered in AdminPage due to "
-                   + exception.Message, exception.InnerException);
+                if (control is HtmlInputCheckBox checkbox)
+                {
+                    if (checkbox.Checked)
+                    {
+                        newMovie.genres.Add(checkbox.Value);
+                    }
+                }
             }
         }
-
 
     }
 }

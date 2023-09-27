@@ -81,10 +81,10 @@
                 </div>
             </div>
         </nav>
-        <div class="alert w-100 alert-danger alert-dismissible fade show fixed-top" role="alert" id="Alert" style="display:none;" >
+        <div runat="server" class="alert w-100 alert-danger alert-dismissible fade show fixed-top" role="alert" id="Alert" style="display:none;" >
             <strong>Holy guacamole!</strong> You should check in on some of those fields below.
         </div>
-       <div runat="server" class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logInModalLabel" aria-hidden="true">
+       <div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logInModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="py-2 text-center">
@@ -108,7 +108,7 @@
                     </div>
                     <div class="modal-footer d-flex justify-content-end px-5 py-3">
                         <button type="button" class="btn btn-secondary mx-2" data-bs-dismiss="modal">Close</button>
-                        <asp:Button runat="server" type="button" class="btn btn-primary" ID="LoggingBtn" OnClientClick="return false" Text="Log In">
+                        <asp:Button runat="server" type="button" class="btn btn-primary" ID="LoggingBtn" OnClick="LoggingBtn_Click" Text="Log In">
                         </asp:Button>
                     </div>
                 </div>
@@ -128,10 +128,10 @@
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/Scripts/bootstrap.js") %>
     </asp:PlaceHolder>
-    <script src='<%=ResolveClientUrl("~/myScripts/navLinks.js?v=1.2") %>' 
-    type="text/javascript"></script>
-    <script src='<%=ResolveClientUrl("~/myScripts/LogIn.js") %>' 
-    type="text/javascript"></script>
+    <%--<script src='<%=ResolveClientUrl("~/myScripts/navLinks.js?v=1.2") %>' 
+    type="text/javascript"></script>--%>
+<%--    <script src='<%=ResolveClientUrl("~/myScripts/LogIn.js?v=1") %>' 
+    type="text/javascript"></script>--%>
     <script src='<%=ResolveClientUrl("~/myScripts/Search.js?v=1") %>' 
     type="text/javascript"></script>
     <script src='<%=ResolveClientUrl("~/myScripts/DisplayMovies.js?v=1") %>' 

@@ -1,8 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" ClientIDMode="Static" AutoEventWireup="true" CodeBehind="SignUpPage.aspx.cs" Inherits="Project.SignUpPage" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-
-    <div class="container text-light d-flex flex-column align-items-center mt-4">
+      <div class="container text-light d-flex flex-column align-items-center mt-4">
         <h1>Sign Up</h1>
         <div class="d-flex w-75 justify-content-between p-3">
             <div class="form-group inputGroup">
@@ -51,10 +50,10 @@
                 <label class="form-check-label" for="exampleCheck1">Agree with Terms & Conditions</label>
             </div>
             <asp:Button runat="server" type="button"  ID="SignUpBtn"  Cssclass="btn btn-primary my-4" 
-                Text="Sign Up" OnClientClick="return false" >
+                Text="Sign Up" OnClientClick="return validation();" OnClick="SignUpBtn_Click" >
             </asp:Button>
         </div>
      </div>
-    <script src="myScripts/SignUp.js?v=1"></script>
+    <script src="myScripts/SignUp.js?v=1.2"></script>
 
 </asp:Content>

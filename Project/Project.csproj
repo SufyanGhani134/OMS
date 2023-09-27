@@ -250,6 +250,7 @@
     <Compile Include="HistoryPage.aspx.designer.cs">
       <DependentUpon>HistoryPage.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Admin.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\CartItem.cs" />
     <Compile Include="Models\Genre.cs" />

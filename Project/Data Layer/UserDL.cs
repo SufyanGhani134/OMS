@@ -45,7 +45,7 @@ namespace Project.Data_Layer
                     }
                     else
                     {
-                        response = "User Already Exits!";
+                        response = "User Already Exists!";
                     }
 
                     

@@ -25,6 +25,13 @@ namespace Project
                 {
                     Response.Redirect("/Home");
                 }
+                else
+                {
+                    Page.Master.FindControl("signUpBtn").Visible = false;
+                    Page.Master.FindControl("logInBtn").Visible = false;
+                    Page.Master.FindControl("logOutBtn").Visible = true;
+
+                }
             }
             else
             {

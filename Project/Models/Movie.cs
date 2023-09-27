@@ -1,4 +1,6 @@
-﻿using Project.Models;
+﻿using Newtonsoft.Json.Linq;
+using Project.Business_Layer;
+using Project.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +32,21 @@ namespace Project.Models
             set { userID = value; }
         }
 
+        public static string AddMovie(Movie movie)
+        {
+            try
+            {
+                BL movieBL = new BL();
+                string response = movieBL.AddMovie(movie);
+                return response;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in AdminPage due to "
+                   + exception.Message, exception.InnerException);
+            }
+        }
 
     }
 }

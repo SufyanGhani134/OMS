@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Project.Business_Layer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,7 +17,6 @@ namespace Project.Models
         private string email;
         private string password;
         private string status;
-        //public Cart userCart;
 
         public string Email
         {
@@ -32,6 +34,59 @@ namespace Project.Models
         {
             get { return status; }
             set { status = value; }
+        }
+
+
+        public int UserLogIn(string Email, string Password)
+        {
+            try
+            {
+                BL userBL = new BL();
+                int response = userBL.UserLogIn(Email, Password);
+                return response;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in UserLogIn due to "
+                   + exception.Message, exception.InnerException);
+            }
+        }
+
+        public User GetUser(int UserID)
+        {
+            try
+            {
+                BL userBL = new BL();
+                User loggedUser = userBL.GetUser(UserID);
+
+                return loggedUser;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in GetUser due to "
+                   + exception.Message, exception.InnerException);
+            }
+        }
+
+        public string SignUp(User user)
+        {
+
+            try
+            {
+                BL userBL = new BL();
+                string response = userBL.InsertUser(user);
+
+                return response;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in SignUp due to "
+                   + exception.Message, exception.InnerException);
+            }
+
         }
     }
 }

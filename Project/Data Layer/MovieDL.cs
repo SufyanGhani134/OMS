@@ -42,8 +42,14 @@ namespace Project.Data_Layer
                         AddMovieResolution(Convert.ToInt32(command.Parameters["@PKID"].Value), item);
                     }
 
-                   
-                    response = Convert.ToString(command.Parameters["@PKID"].Value);
+                   if(Convert.ToInt32(command.Parameters["@PKID"].Value) > 0)
+                    {
+                        response = "Movie Added Successfully!";
+                    }
+                    else
+                    {
+                        response = "Error while Adding Movie!";
+                    }
                     con.Close();
                 }
                 return response;

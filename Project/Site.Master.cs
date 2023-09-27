@@ -31,5 +31,31 @@ namespace Project
             Response.Redirect("/");
         }
 
+        protected void LoggingBtn_Click(object sender, EventArgs e)
+        {
+            string email = Email.Text;
+            string password = Password.Text;
+            User user = new User();
+            int response = user.UserLogIn(email, password);
+            if(response != 0) 
+            {
+                User loggedUser = user.GetUser(response);
+                Session["loggedUser"] = loggedUser;
+                if(loggedUser.Status == "Admin")
+                {
+                    Response.Redirect("/Admin/" + response + "/Home");
+
+                }
+                else
+                {
+                    Response.Redirect("/UserPage/" + response + "/Home");
+                }
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString(),
+                  "logIn()", true);
+            }
+        }
     }
 }
