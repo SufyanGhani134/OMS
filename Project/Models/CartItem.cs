@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project.Business_Layer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -20,6 +21,22 @@ namespace Project.Models
         {
             get { return cartID; }
             set { cartID = value; }
+        }
+
+        public string AddCartItem(CartItem cartItem)
+        {
+            try
+            {
+                BL cartBL = new BL();
+                string response = cartBL.AddCartItem(cartItem);
+                return response;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in CartItem Class due to "
+                   + exception.Message, exception.InnerException);
+            }
         }
     }
 }

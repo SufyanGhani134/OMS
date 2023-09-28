@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" ClientIDMode="Static" AutoEventWireup="true" CodeBehind="AdminPage.aspx.cs" Inherits="Project.AdminPage" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+    <input type="hidden" id="arrayData" name="arrayData" runat="server"  />
     <div class="container bg-light d-flex flex-column p-5 rounded-3 mt-3" style="gap:1rem;">
     <div class="d-flex w-100 justify-content-center">
         <div class="d-flex w-25 align-items-center">
@@ -15,7 +16,7 @@
     </div>
    <div class="d-flex justify-content-evenly w-50 align-items-center">
         <label><strong>Resolutions :</strong></label>
-       <asp:CheckBoxList runat="server" ID="ResolutionList" RepeatDirection="Horizontal" CellPadding="5">
+       <asp:CheckBoxList runat="server" ID="ResolutionList" RepeatDirection="Horizontal">
            
 
        </asp:CheckBoxList>
@@ -63,7 +64,7 @@
     </div>
     <div class="d-flex justify-content-center">
         <strong class="px-2">Selected Genres:</strong>
-        <ul runat="server" class="w-75 selectedItems d-flex " id="selectedGenres">
+        <ul class="w-75 selectedItems d-flex " id="selectedGenres">
 
         </ul>
     </div>
@@ -80,5 +81,5 @@
                     </asp:Button>
     </div>
 </div>
-    <script src='<%=ResolveClientUrl("myScripts/AddMovie.js?v=1.3") %>'></script>
+    <script src='<%=ResolveClientUrl("myScripts/AddMovie.js?v=1.5") %>'></script>
 </asp:Content>

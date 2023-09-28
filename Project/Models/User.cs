@@ -17,6 +17,11 @@ namespace Project.Models
         private string email;
         private string password;
         private string status;
+        public int UserID
+        {
+            get { return userID; }
+            set { userID = value; }
+        }
 
         public string Email
         {

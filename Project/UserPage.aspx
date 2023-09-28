@@ -35,17 +35,19 @@
     border-radius: 10px;
     }
 </style>
-    
+   
+     <asp:HiddenField ID="cartItems" runat="server" />
+
     <div id="movieContainer" class="d-flex justify-content-evenly flex-wrap my-3">
 
     </div>
     <script src='<%=ResolveClientUrl("~/myScripts/GetMovie.js") %>' 
     type="text/javascript"></script>
-    <script src='<%=ResolveClientUrl("~/myScripts/DisplayMovies.js") %>' 
+    <script src='<%=ResolveClientUrl("~/myScripts/DisplayMovies.js?v=1.5") %>' 
     type="text/javascript"></script>
-    <script src='<%=ResolveClientUrl("~/myScripts/AddCart.js") %>' 
+    <script src='<%=ResolveClientUrl("~/myScripts/AddCart.js?v=2.1") %>' 
     type="text/javascript"></script>
-    <script src='<%=ResolveClientUrl("~/myScripts/GetCartID.js") %>' 
+    <script src='<%=ResolveClientUrl("~/myScripts/GetCartID.js?v=1") %>' 
     type="text/javascript"></script>
     <script src='<%=ResolveClientUrl("~/myScripts/GetCartAndCheckOut.js") %>' 
     type="text/javascript"></script>

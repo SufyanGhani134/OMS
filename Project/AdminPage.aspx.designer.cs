@@ -15,6 +15,15 @@ namespace Project
     {
 
         /// <summary>
+        /// arrayData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden arrayData;
+
+        /// <summary>
         /// movieTitle control.
         /// </summary>
         /// <remarks>
@@ -103,15 +112,6 @@ namespace Project
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button addGenre;
-
-        /// <summary>
-        /// selectedGenres control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl selectedGenres;
 
         /// <summary>
         /// price control.

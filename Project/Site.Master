@@ -134,7 +134,7 @@
     type="text/javascript"></script>--%>
     <script src='<%=ResolveClientUrl("~/myScripts/Search.js?v=1") %>' 
     type="text/javascript"></script>
-    <script src='<%=ResolveClientUrl("~/myScripts/DisplayMovies.js?v=1") %>' 
+    <script src='<%=ResolveClientUrl("~/myScripts/DisplayMovies.js?v=1.5") %>' 
     type="text/javascript"></script>
 </body>
 </html>

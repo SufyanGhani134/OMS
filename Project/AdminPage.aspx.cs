@@ -16,7 +16,6 @@ namespace Project
 {
     public partial class AdminPage : System.Web.UI.Page
     {
-        public string genre;
         public List<string> SelectedResolutions;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -31,6 +30,8 @@ namespace Project
                 else
                 {
                     Response.Redirect("/Home");
+
+                    
                 }
                 getResolution();
             }
@@ -62,14 +63,6 @@ namespace Project
             }
         }
 
-        public List<string> getGenres()
-        {
-            BL genreBL = new BL();
-            List<string> genres = genreBL.GetAllGenres();
-            return genres;
-        }
-
-
         [WebMethod]
         [ScriptMethod(UseHttpGet = true)]
         public static List<string> GetAllGenres()
@@ -91,6 +84,7 @@ namespace Project
 
         protected void addMovie_Click(object sender, EventArgs e)
         {
+            
             Movie newMovie = new Movie();
             newMovie.title = movieTitle.Text;
             newMovie.ReleaseYear = Convert.ToInt32(releaseYear.Text);
@@ -103,25 +97,20 @@ namespace Project
                 }
             }
 
-
             newMovie.duration = hrs.Text + ":" + mins.Text;
             newMovie.ratings = float.Parse(rating.Text);
             newMovie.description = description.InnerText;
             newMovie.poster = poster.FileName;
             newMovie.price = float.Parse(price.Text);
-            newMovie.resolutions = new List<string>();
-
             newMovie.genres = new List<string>();
-            foreach (Control control in selectedGenres.Controls)
-            {
-                if (control is HtmlInputCheckBox checkbox)
-                {
-                    if (checkbox.Checked)
-                    {
-                        newMovie.genres.Add(checkbox.Value);
-                    }
-                }
-            }
+            newMovie.genres = JsonConvert.DeserializeObject<List<string>>(arrayData.Value);
+            User loggedUser = (User) Session["loggedUser"];
+            newMovie.UserID = loggedUser.UserID;
+
+            Admin admin = new Admin();
+            string response = admin.Movie.AddMovie(newMovie);
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString(),
+                  "AddMovieResponse('" + response + "');", true);
         }
 
     }

@@ -13,5 +13,7 @@ namespace Project.Models
         public List<Movie> product { get; set; }
         public float totalCost { get; set; }
         public DateTime generatedDate { get; set; }
+
+        
     }
 }

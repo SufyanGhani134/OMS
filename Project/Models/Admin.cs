@@ -8,24 +8,14 @@ namespace Project.Models
 {
     public class Admin: User
     {
+        public Movie Movie { get; set; }
 
-        public Admin() {}
-
-        public string AddMovie(Movie movie)
+        public Admin() 
         {
-            try
-            {
-                BL movieBL = new BL();
-                string response = movieBL.AddMovie(movie);
-                return response;
-            }
-            catch (Exception exception)
-            {
-                throw new Exception("An exception of type " + exception.GetType().ToString()
-                   + " is encountered in Admin Class due to "
-                   + exception.Message, exception.InnerException);
-            }
+            this.Movie = new Movie();
         }
+
+        
 
         public List<Movie> GetMovies(int userID) 
         {

@@ -27,7 +27,7 @@ namespace Project
 
         protected void logOutBtn_Click(object sender, EventArgs e)
         {
-            HttpContext.Current.Session["IsLoggedIn"] = null;
+            Session["loggedUser"] = null;
             Response.Redirect("/");
         }
 

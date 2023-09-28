@@ -26,28 +26,33 @@
         `
     }
 
-    var genres = [];
-    $(document).on("change", ".genres", function () {
-        console.log("enter")
-        if (this.checked) {
-            genres.push(this.value);
-            $("#selectedGenres").append(`<li class="mx-2" id="${this.value}">${this.value}</li>`)
-        } else {
-            $(`#${this.value}`).remove();
-            let removeIndex = genres.indexOf(this.value);
-            genres.splice(removeIndex, 1);
 
-        }
-    })
+   
 
-    $("#addGenre").click(function () {
-        let newGenre = $("#newGenre").val();
-        genres.push(newGenre);
-        $("#selectedGenres").append(`<li class="mx-2">${newGenre}</li>`)
-        $("#newGenre").val("");
-    })
+    
 })
 
+
+var genres = [];
+$(document).on("change", ".genres", function () {
+    console.log("enter")
+    if (this.checked) {
+        genres.push(this.value);
+        $("#selectedGenres").append(`<li class="mx-2" id="${this.value}">${this.value}</li>`)
+    } else {
+        $(`#${this.value}`).remove();
+        let removeIndex = genres.indexOf(this.value);
+        genres.splice(removeIndex, 1);
+
+    }
+})
+
+$("#addGenre").click(function () {
+    let newGenre = $("#newGenre").val();
+    genres.push(newGenre);
+    $("#selectedGenres").append(`<li class="mx-2">${newGenre}</li>`)
+    $("#newGenre").val("");
+})
 function AddMovie() {
     let isValidMovie = true;
     let title = $("#movieTitle").val();
@@ -81,6 +86,7 @@ function AddMovie() {
         if (description == "") { throw "Movie description is Required!" }
         if (poster == "") { throw "Movie Poster is Required!" }
         if (isNaN(price) || price == "" || price <= 0) { throw "Movie Price Required or Invalid Input!" }
+        if (genres.length == 0) { throw "Movie Genre(s) Required!" }
     } catch (error) {
         isValidMovie = false;
         $("#Alert").show();
@@ -90,6 +96,19 @@ function AddMovie() {
         }, 1500)
     }
 
-    return isValidMovie;
+    $("#arrayData").val(JSON.stringify(genres))
+        console.log($("#arrayData").val(), typeof ($("#arrayData").val()))
 
+    return isValidMovie;
+    
+}
+
+function AddMovieResponse(response) {
+    $("#Alert").removeClass("alert-danger");
+    $("#Alert").addClass("alert-success");
+    $("#Alert").show();
+    $("#Alert").text(response);
+    setTimeout(() => {
+        $("#Alert").hide();
+    }, 1500)
 }

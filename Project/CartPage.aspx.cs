@@ -1,4 +1,6 @@
-﻿using Project.Business_Layer;
+﻿using Microsoft.Ajax.Utilities;
+using Newtonsoft.Json;
+using Project.Business_Layer;
 using Project.Models;
 using System;
 using System.Collections.Generic;
@@ -16,23 +18,12 @@ namespace Project
         protected void Page_Load(object sender, EventArgs e)
         {
             if(!IsPostBack) {
-                int isLoggedIn = Convert.ToInt32(HttpContext.Current.Session["IsLoggedIn"]);
-                string currentUrl = System.Web.HttpContext.Current.Request.Url.AbsoluteUri;
-                string[] userIDArr = currentUrl.Split(new char[] { '/' });
-                if (userIDArr.Length > 4)
-                {
-                    int userID = Convert.ToInt32(userIDArr[4]);
-                    if (userID != isLoggedIn)
-                    {
-                        Response.Redirect("/Home");
-                    }
-                    else
-                    {
-                        Page.Master.FindControl("signUpBtn").Visible = false;
-                        Page.Master.FindControl("logInBtn").Visible = false;
-                        Page.Master.FindControl("logOutBtn").Visible = true;
 
-                    }
+                if (Session["loggedUser"] != null)
+                {
+                    Page.Master.FindControl("signUpBtn").Visible = false;
+                    Page.Master.FindControl("logInBtn").Visible = false;
+                    Page.Master.FindControl("logOutBtn").Visible = true;
                 }
                 else
                 {

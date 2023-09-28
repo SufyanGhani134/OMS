@@ -10,8 +10,7 @@
             movies[i].resolutions.forEach((resolution) => {
                 DisplayResolutions(resolution, movies[i].movieId);
             })
-            $(`#CartBtn_${movies[i].movieId}`).click(function (e) {
-                e.preventDefault();
+            $(`#CartBtn_${movies[i].movieId}`).click(function () {
                 AddToCart(movies[i])
             })
         }
@@ -64,7 +63,7 @@ function DisplayMovieCard(movie) {
                                 </p>
                           </div>
                           <div class="d-flex justify-content-between align-items-center mt-2">
-                            <button class="btn btn-warning text-light" id="CartBtn_${movie.movieId}">Add To Cart</button>        
+                            <button runat="server" class="btn btn-warning text-light" id="CartBtn_${movie.movieId}">Add To Cart</button>        
                             <h2 class="text-warning">$ ${movie.price}</h2>
                           </div>
                   </div>

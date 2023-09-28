@@ -32,7 +32,7 @@ namespace Project.Models
             set { userID = value; }
         }
 
-        public static string AddMovie(Movie movie)
+        public string AddMovie(Movie movie)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace Project.Models
             catch (Exception exception)
             {
                 throw new Exception("An exception of type " + exception.GetType().ToString()
-                   + " is encountered in AdminPage due to "
+                   + " is encountered in Movie Class due to "
                    + exception.Message, exception.InnerException);
             }
         }

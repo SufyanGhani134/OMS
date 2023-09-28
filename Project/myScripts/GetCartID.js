@@ -1,5 +1,4 @@
 ﻿async function getCartID(userID) {
-    $("#CartLink").attr("href", `UserPage/${userID}/Cart`);
     return new Promise((resolve, reject) => {
         $.ajax({
             type: "GET",

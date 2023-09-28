@@ -55,6 +55,7 @@ namespace Project.Business_Layer
                         user.firstName = dataRow["firstName"].ToString();
                         user.lastName = dataRow["lastName"].ToString();
                         user.dob = Convert.ToDateTime( dataRow["dob"]);
+                        user.UserID = userID;
                         if(Convert.ToInt32(dataRow["roleID"]) == 1)
                         {
                             user.Status = "Admin";

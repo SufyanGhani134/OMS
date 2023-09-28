@@ -21,35 +21,32 @@ namespace Project
         {
            if (!IsPostBack) 
             {
-                int isLoggedIn = Convert.ToInt32(HttpContext.Current.Session["IsLoggedIn"]);
-                string currentUrl = System.Web.HttpContext.Current.Request.Url.AbsoluteUri;
-                string[] userIDArr = currentUrl.Split(new char[] { '/' });
-                if (userIDArr.Length > 4)
+                if (Session["loggedUser"] != null)
                 {
-                    int userID = Convert.ToInt32(userIDArr[4]);
-                    if (userID != isLoggedIn)
-                    {
-                        Response.Redirect("/Home");
-                    }
-                    else
-                    {
-                        Page.Master.FindControl("signUpBtn").Visible = false;
-                        Page.Master.FindControl("logInBtn").Visible = false;
-                        Page.Master.FindControl("logOutBtn").Visible = true;
-
-                    }
+                    Page.Master.FindControl("signUpBtn").Visible = false;
+                    Page.Master.FindControl("logInBtn").Visible = false;
+                    Page.Master.FindControl("logOutBtn").Visible = true;
                 }
                 else
                 {
                     Response.Redirect("/Home");
                 }
-            }
-            
 
+            }
+            else
+            {
+                CartItem item = JsonConvert.DeserializeObject<CartItem>(cartItems.Value);
+                if (item != null)
+                {
+                    CartItem cartItem = new CartItem();
+                    string response = cartItem.AddCartItem(item);
+                }
+            }
         }
 
-       
-        
+
+
+
 
         [WebMethod]
         [ScriptMethod(UseHttpGet = true)]
@@ -92,22 +89,6 @@ namespace Project
             }
         }
 
-        [WebMethod]
-        public static string AddCartItem(CartItem cartItem)
-        {
-            try
-            {
-                BL cartBL = new BL();
-                string response = cartBL.AddCartItem(cartItem);
-                return response;
-            }
-            catch (Exception exception)
-            {
-                throw new Exception("An exception of type " + exception.GetType().ToString()
-                   + " is encountered in AddCartItem due to "
-                   + exception.Message, exception.InnerException);
-            }
-        }
 
         [WebMethod]
         public static string AddSearchHistory(int userID, List<string> genres)
