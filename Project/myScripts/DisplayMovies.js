@@ -5,7 +5,7 @@
         for (let i = 0; i < movies.length; i++) {
             $("#movieContainer").append(DisplayMovieCard(movies[i]));
             movies[i].genres.forEach((genre) => {
-                DisplayGenre(genre, movies[i].movieId);
+                DisplayGenre(genre, movies[i].movieId);3
             })
             movies[i].resolutions.forEach((resolution) => {
                 DisplayResolutions(resolution, movies[i].movieId);

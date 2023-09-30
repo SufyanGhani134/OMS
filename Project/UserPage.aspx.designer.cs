@@ -21,6 +21,20 @@ namespace Project
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField cartItems;
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden cartItems;
+
+        /// <summary>
+        /// Master property.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated property.
+        /// </remarks>
+        public new Project.SiteMaster Master
+        {
+            get
+            {
+                return ((Project.SiteMaster)(base.Master));
+            }
+        }
     }
 }

@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="UserPage.aspx.cs" Inherits="Project.UserPage"  %>
-<%@ Register Src="~/User Controls/MovieUC.ascx" TagPrefix="UC" TagName="MovieCard" %>
+<%@ MasterType VirtualPath="~/Site.Master" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     
@@ -36,7 +36,7 @@
     }
 </style>
    
-     <asp:HiddenField ID="cartItems" runat="server" />
+     <input type="hidden" id="cartItems" name="arrayData" runat="server"   enableviewstate="false" />
 
     <div id="movieContainer" class="d-flex justify-content-evenly flex-wrap my-3">
 
@@ -47,7 +47,9 @@
     type="text/javascript"></script>
     <script src='<%=ResolveClientUrl("~/myScripts/AddCart.js?v=2.1") %>' 
     type="text/javascript"></script>
-    <script src='<%=ResolveClientUrl("~/myScripts/GetCartID.js?v=1") %>' 
+    <script src='<%=ResolveClientUrl("~/myScripts/AlertMsg.js") %>' 
+    type="text/javascript"></script>
+    <script src='<%=ResolveClientUrl("~/myScripts/GetCartID.js?v=1.2") %>' 
     type="text/javascript"></script>
     <script src='<%=ResolveClientUrl("~/myScripts/GetCartAndCheckOut.js") %>' 
     type="text/javascript"></script>

@@ -17,6 +17,12 @@ namespace Project.Models
         private string email;
         private string password;
         private string status;
+        public Cart cart;
+
+        public User() 
+        {
+            this.cart = new Cart();
+        }
         public int UserID
         {
             get { return userID; }

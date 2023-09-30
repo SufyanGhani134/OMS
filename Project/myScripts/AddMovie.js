@@ -102,13 +102,3 @@ function AddMovie() {
     return isValidMovie;
     
 }
-
-function AddMovieResponse(response) {
-    $("#Alert").removeClass("alert-danger");
-    $("#Alert").addClass("alert-success");
-    $("#Alert").show();
-    $("#Alert").text(response);
-    setTimeout(() => {
-        $("#Alert").hide();
-    }, 1500)
-}

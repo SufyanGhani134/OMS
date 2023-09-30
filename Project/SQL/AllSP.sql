@@ -533,3 +533,21 @@ BEGIN
     DROP TABLE #TempMovieID;
 END
 
+GO 
+
+IF EXISTS (SELECT 1 FROM sys.procedures WHERE OBJECT_ID = OBJECT_ID(N'[dbo].[MakeAdmin]'))
+    DROP PROCEDURE MakeAdmin;
+GO
+
+CREATE PROCEDURE MakeAdmin
+    @email VARCHAR(50)
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM Users WHERE email = @email)
+        UPDATE Users
+        SET roleID = 1
+        WHERE email = @email;
+    ELSE
+        PRINT 'No such User Exists!';
+END
+

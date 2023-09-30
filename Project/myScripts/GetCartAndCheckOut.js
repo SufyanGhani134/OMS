@@ -119,82 +119,70 @@
     function RemoveFromCart(item) {
         console.log(item);
         let removeId = item.itemId;
-        $.ajax({
-            type: "POST",
-            url: "/CartPage.aspx/RemoveCartItem",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({ cartItemID: removeId }),
-            dataType: "json",
-            success: function (response) {
-                console.log(response.d);
-            },
-            error: function (error) {
-                console.log(error, "this is the POST error");
-            }
-        })
+        $("#removeItemID").val(removeId);
+        //$.ajax({
+        //    type: "POST",
+        //    url: "/CartPage.aspx/RemoveCartItem",
+        //    contentType: "application/json; charset=utf-8",
+        //    data: JSON.stringify({ cartItemID: removeId }),
+        //    dataType: "json",
+        //    success: function (response) {
+        //        console.log(response.d);
+        //    },
+        //    error: function (error) {
+        //        console.log(error, "this is the POST error");
+        //    }
+        //})
     }
-
 
     $("#checkOutBtn").click(() => {
-        CheckOut();
-        $("#total").html(totalCost);
-        $("#boughtBy").html(loggedUser.firstName + " " + loggedUser.lastName);
-        let date = new Date();
-        $("#boughtAt").html(date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear())
+        return CheckOut();
     })
-
     function CheckOut() {
         const checkedIDs = checkedItems.map(item => item.itemId);
+        console.log(checkedItems, "***********");
+        
         if (checkedItems.length > 0) {
-            $.ajax({
-                type: "POST",
-                url: "/CartPage.aspx/UpdateCartItems",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify({ cartItemIDs: checkedIDs }),
-                dataType: "json",
-                success: function (response) {
-                    //GetCartItems();
-                },
-                error: function (error) {
-                    console.log(error, "this is the POST error");
-                }
-            })
-            $.ajax({
-                type: "POST",
-                url: "/CartPage.aspx/UpdateCart",
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify({ cartID: CartID, totalCost: totalCost }),
-                dataType: "json",
-                success: function (response) {
-                    console.log(response.d)
-                },
-                error: function (error) {
-                    console.log(error, "this is the POST error");
-                }
-            })
-
+            $("#checkedItems").val(JSON.stringify(checkedIDs));
+            $("#updatedCartID").val(CartID);
+            $("#updatedTotalCost").val(totalCost);
+            $("#reciptArr").val(JSON.stringify(checkedItems));
             checkedItems.forEach((item, index) => {
-                $("#receiptBody").append(DisplayReceipt(item, index))
+                $("#receiptBody").append(
+                    `<tr>
+                        <td class="p-2">${index + 1}</td>
+                        <td class="p-2">${item.title}</td>
+                        <td class="p-2">${item.unitCost}</td>
+                </tr>
+            `);
             })
-            $("#checkOutBtn").attr("data-bs-toggle", "modal")
-
+            return true;           
         } else {
             alert("select check box to buy items!")
+            return false;
         }
-        
-
-        function DisplayReceipt(item, index) {
-            let generatedDate = new Date();
-            return `
-            <tr>
-                <td class="p-2">${index+1}</td>
-                <td class="p-2">${item.title}</td>
-                <td class="p-2">${item.unitCost}</td>
-            </tr>
-            `
-        }
-
+       
     }
+    
 
   
 })
+
+function DisplayReceipt() {
+    console.log(JSON.parse($("#reciptArr").val()), "***********");
+    let checkedItems = JSON.parse($("#reciptArr").val());
+    checkedItems.forEach((item, index) => {
+        $("#receiptBody").append(
+            `<tr>
+                        <td class="p-2">${index + 1}</td>
+                        <td class="p-2">${item.title}</td>
+                        <td class="p-2">${item.unitCost}</td>
+                </tr>
+            `);
+    })
+    let date = new Date();
+    $("#boughtAt").html(date.getDate() + "/" + date.getMonth() + "/" + date.getFullYear())
+    window.onload = function () {
+        $("#receiptBtn").modal('show');
+    };
+}

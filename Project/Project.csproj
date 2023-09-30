@@ -131,7 +131,7 @@
     <Content Include="myScripts\GetCartAndCheckOut.js" />
     <Content Include="myScripts\GetHistory.js" />
     <Content Include="myScripts\GetMovie.js" />
-    <Content Include="myScripts\LogIn.js" />
+    <Content Include="myScripts\AlertMsg.js" />
     <Content Include="myScripts\AddMovie.js" />
     <Content Include="myScripts\navLinks.js" />
     <Content Include="myScripts\Search.js" />

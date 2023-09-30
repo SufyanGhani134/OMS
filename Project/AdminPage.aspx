@@ -82,4 +82,5 @@
     </div>
 </div>
     <script src='<%=ResolveClientUrl("myScripts/AddMovie.js?v=1.5") %>'></script>
+        <script src='<%=ResolveClientUrl("myScripts/AlertMsg.js") %>'></script>
 </asp:Content>

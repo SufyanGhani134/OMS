@@ -16,6 +16,14 @@
             border: solid 1px;
         }
     </style>
+    <asp:HiddenField runat="server" ID="checkedItems" />
+    <asp:HiddenField runat="server" ID="updatedCartID" />
+    <asp:HiddenField runat="server" ID="updatedTotalCost" />
+    <asp:HiddenField runat="server" ID="removeItemID" />
+    <asp:HiddenField runat="server" ID="reciptArr" />
+
+
+
     <div class="container text-light" id="movieContainer">
         <table class="cartTable">
            <thead>
@@ -36,8 +44,8 @@
           </tbody>
         </table>
         <div>
-            <asp:Button runat="server" type="button" id="checkOutBtn" data-bs-toggle="modal" data-bs-target="#receiptBtn"
-                class="btn btn-primary w-100"  OnClientClick="return false">
+            <asp:Button runat="server" type="button" id="checkOutBtn"  data-bs-target="#receiptBtn"
+                class="btn btn-primary w-100" OnClick="checkOutBtn_Click">
                 
             </asp:Button>
         </div>
@@ -64,7 +72,7 @@
                       <div class="w-100 text-dark px-3 mt-5">
                           <div class=" d-flex justify-content-between px-5">
                             <p>Total :</p>
-                            <h5 id="total"></h5>
+                            <asp:label runat="server" id="total"></asp:label>
                           </div>
                           <div class=" d-flex justify-content-between px-5">
                               <p>Bought By : </p>
@@ -86,8 +94,10 @@
        </div>
 
     </div>
-    <script src='<%=ResolveClientUrl("~/myScripts/GetCartID.js") %>' 
+    <script src='<%=ResolveClientUrl("~/myScripts/GetCartID.js?v=1") %>' 
     type="text/javascript"></script>
-    <script src='<%=ResolveClientUrl("~/myScripts/GetCartAndCheckOut.js?v=1.3") %>' 
+    <script src='<%=ResolveClientUrl("~/myScripts/GetCartAndCheckOut.js?v=1.4") %>' 
+    type="text/javascript"></script>
+    <script src='<%=ResolveClientUrl("~/myScripts/AlertMsg.js?v=1") %>' 
     type="text/javascript"></script>
 </asp:Content>

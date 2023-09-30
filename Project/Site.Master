@@ -15,7 +15,7 @@
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
 </head>
 <body>
     <form runat="server">
@@ -51,7 +51,7 @@
                         <li runat="server" class="nav-item">
                             <a class="nav-link" id="CartLink" runat="server" style="cursor: pointer;" onclick="return false">
                             Cart
-                            <span class="badge badge-primary badge-pill" id="totalItems"></span>
+                            <asp:Label runat="server" class="badge badge-primary badge-pill" ID="totalItems" Text=""></asp:Label>
                             </a>
                         </li>
                         <li class="nav-item" id="suggestTab"><a class="nav-link" runat="server" style="cursor: pointer;">Suggestions</a></li>
@@ -128,8 +128,8 @@
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/Scripts/bootstrap.js") %>
     </asp:PlaceHolder>
-    <%--<script src='<%=ResolveClientUrl("~/myScripts/navLinks.js?v=1.2") %>' 
-    type="text/javascript"></script>--%>
+    <script src='<%=ResolveClientUrl("~/myScripts/navLinks.js?v=1.2") %>' 
+    type="text/javascript"></script>
 <%--    <script src='<%=ResolveClientUrl("~/myScripts/LogIn.js?v=1") %>' 
     type="text/javascript"></script>--%>
     <script src='<%=ResolveClientUrl("~/myScripts/Search.js?v=1") %>' 

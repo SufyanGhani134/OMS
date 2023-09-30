@@ -1,7 +1,11 @@
-IF NOT EXISTS (SELECT 1 FROM sys.databases WHERE OBJECT_ID('OnlineMovieSystem') IS NULL)
+IF NOT EXISTS (SELECT 1 FROM sys.databases WHERE name = 'OnlineMovieSystem')
 BEGIN
     CREATE DATABASE OnlineMovieSystem;
+    PRINT 'Database OnlineMovieSystem has been created!'
 END
+ELSE
+    PRINT 'Database OnlineMovieSystem already exists!';
+
 
 use OnlineMovieSystem;
 

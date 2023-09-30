@@ -30,6 +30,18 @@ namespace Project
                     Response.Redirect("/Home");
                 }
             }
+            else
+            {
+                if(removeItemID.Value != "")
+                {
+                    int removeID = Convert.ToInt32(removeItemID.Value);
+                    CartItem item = new CartItem();
+                    string response = item.RemoveCartItem(removeID);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString(),
+                      "AlertMsg('" + response + "');", true);
+                }
+                
+            }
             
         }
 
@@ -58,24 +70,6 @@ namespace Project
         }
 
         [WebMethod]
-        public static string UpdateCartItems(List<int> cartItemIDs)
-        {
-            try
-            {
-                BL cartBL = new BL();
-               cartBL.UpdateCartItem(cartItemIDs);
-
-                return "Received array: " + string.Join(", ", cartItemIDs); 
-            }
-            catch (Exception exception)
-            {
-                throw new Exception("An exception of type " + exception.GetType().ToString()
-                   + " is encountered in LogInPage due to "
-                   + exception.Message, exception.InnerException);
-            }
-        }
-
-        [WebMethod]
         public static string UpdateCart(int cartID, float totalCost)
         {
             try
@@ -93,22 +87,20 @@ namespace Project
             }
         }
 
-        [WebMethod]
-        public static string RemoveCartItem(int cartItemID)
+        
+        protected void checkOutBtn_Click(object sender, EventArgs e)
         {
-            try
-            {
-                BL cartBL = new BL();
-                cartBL.RemoveCartItem(cartItemID);
-
-                return "item removed successfully!";
-            }
-            catch (Exception exception)
-            {
-                throw new Exception("An exception of type " + exception.GetType().ToString()
-                   + " is encountered in LogInPage due to "
-                   + exception.Message, exception.InnerException);
-            }
+            List<int> checkedIDs = JsonConvert.DeserializeObject<List<int>>(checkedItems.Value);
+            float UpdatedTotalCost = float.Parse(updatedTotalCost.Value);
+            int UpdatedCartID = Convert.ToInt32(updatedCartID.Value);
+            CartItem cartItem = new CartItem();
+            cartItem.UpdateCartItems(checkedIDs);
+            Cart cart = new Cart();
+            cart.UpdateCart(UpdatedCartID, UpdatedTotalCost);
+            total.Text = UpdatedTotalCost.ToString();
+            ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString(),
+                  "DisplayReceipt();", true);
         }
+
     }
 }

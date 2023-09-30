@@ -26,20 +26,39 @@ namespace Project
                     Page.Master.FindControl("signUpBtn").Visible = false;
                     Page.Master.FindControl("logInBtn").Visible = false;
                     Page.Master.FindControl("logOutBtn").Visible = true;
+                    User loggedUser = (User)Session["loggedUser"];
+                    Cart cart = new Cart();
+                    int CartId = cart.GetCartId(loggedUser.UserID);
+                    List<CartItem> cartItems = cart.GetCartItems(CartId);
+                    List<CartItem> unCheckItems = new List<CartItem>();
+                    foreach (CartItem item in cartItems)
+                    {
+                        if (!item.isCheck)
+                        {
+                            unCheckItems.Add(item);
+                        }
+                    }
+                    int len = unCheckItems.Count;
+                    this.Master.CartCount = "(" + len.ToString() + ")";
                 }
                 else
                 {
                     Response.Redirect("/Home");
                 }
-
-            }
+                
+           }
             else
             {
                 CartItem item = JsonConvert.DeserializeObject<CartItem>(cartItems.Value);
                 if (item != null)
                 {
                     CartItem cartItem = new CartItem();
+                    User user = new User();
+                    User loggedUser = (User)Session["loggedUser"];
+                    item.CartID = user.cart.GetCartId(loggedUser.UserID);
                     string response = cartItem.AddCartItem(item);
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString(),
+                  "AlertMsg('" + response + "');", true);
                 }
             }
         }

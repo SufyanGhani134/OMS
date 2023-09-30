@@ -50,10 +50,11 @@
                 <label class="form-check-label" for="exampleCheck1">Agree with Terms & Conditions</label>
             </div>
             <asp:Button runat="server" type="button"  ID="SignUpBtn"  Cssclass="btn btn-primary my-4" 
-                Text="Sign Up" OnClientClick="return validation();" OnClick="SignUpBtn_Click" >
+                Text="Sign Up" OnClick="SignUpBtn_Click" >
             </asp:Button>
         </div>
      </div>
-    <script src="myScripts/SignUp.js?v=1.2"></script>
+    <script src="myScripts/SignUp.js?v=1.3"></script>
+
 
 </asp:Content>

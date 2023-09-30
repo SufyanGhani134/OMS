@@ -38,4 +38,6 @@
     </div>
     <script src='<%=ResolveClientUrl("~/myScripts/SuggestedMovies.js?v=1") %>' 
     type="text/javascript"></script>
+    <script src='<%=ResolveClientUrl("~/myScripts/DisplayMovies.js") %>' 
+    type="text/javascript"></script>
 </asp:Content>

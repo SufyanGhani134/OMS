@@ -19,7 +19,17 @@ namespace Project
         {
             
         }
-
+        public string CartCount
+        {
+            get
+            {
+                return totalItems.Text;
+            }
+            set
+            {
+                totalItems.Text = value;
+            }
+        }
         protected void signUpBtn_Click(object sender, EventArgs e)
         {
             Response.Redirect("SignUpPage");
@@ -53,8 +63,9 @@ namespace Project
             }
             else
             {
+                string msg = "Invalid Email or Password!";
                 ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString(),
-                  "logIn()", true);
+                  "logInAlert("+ msg + ")", true);
             }
         }
     }

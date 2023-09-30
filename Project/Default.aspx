@@ -37,11 +37,13 @@
     <div id="movieContainer" class="d-flex justify-content-evenly flex-wrap my-3">
 
     </div>
-    <script src='<%=ResolveClientUrl("~/myScripts/LogIn.js?v=1") %>' 
-    type="text/javascript"></script>
+    <%--<script src='<%=ResolveClientUrl("~/myScripts/LogIn.js?v=1") %>' 
+    type="text/javascript"></script>--%>
     <script src='<%=ResolveClientUrl("~/myScripts/GetMovie.js") %>' 
     type="text/javascript"></script>
-    <script src='<%=ResolveClientUrl("~/myScripts/AddCart.js") %>' 
+    <script src='<%=ResolveClientUrl("~/myScripts/DisplayMovies.js?v=1.5") %>' 
     type="text/javascript"></script>
+    <%--<script src='<%=ResolveClientUrl("~/myScripts/AddCart.js") %>' 
+    type="text/javascript"></script>--%>
     
 </asp:Content>

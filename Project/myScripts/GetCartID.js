@@ -1,4 +1,4 @@
-﻿async function getCartID(userID) {
+﻿function getCartID(userID) {
     return new Promise((resolve, reject) => {
         $.ajax({
             type: "GET",
@@ -7,7 +7,7 @@
             data: { userID: userID },
             dataType: "json",
             success: function (response) {
-                console.log(response.d, "this is cartID")
+                console.log(response.d, "this is cartID");
                 resolve(response.d);
             },
             error: function (error) {

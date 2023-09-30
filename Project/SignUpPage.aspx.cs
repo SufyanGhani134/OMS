@@ -42,7 +42,6 @@ namespace Project
             {
                 isValid = true;
             }
-
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString(),
                   "ShowAlert('" + isValid + "');", true);
         }

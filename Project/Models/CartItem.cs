@@ -38,5 +38,39 @@ namespace Project.Models
                    + exception.Message, exception.InnerException);
             }
         }
+
+        public string UpdateCartItems(List<int> cartItemIDs)
+        {
+            try
+            {
+                BL cartBL = new BL();
+                cartBL.UpdateCartItem(cartItemIDs);
+
+                return "Received array: " + string.Join(", ", cartItemIDs);
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in LogInPage due to "
+                   + exception.Message, exception.InnerException);
+            }
+        }
+
+        public string RemoveCartItem(int cartItemID)
+        {
+            try
+            {
+                BL cartBL = new BL();
+                cartBL.RemoveCartItem(cartItemID);
+
+                return "item removed successfully!";
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in LogInPage due to "
+                   + exception.Message, exception.InnerException);
+            }
+        }
     }
 }

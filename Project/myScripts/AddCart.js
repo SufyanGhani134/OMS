@@ -1,5 +1,5 @@
 ﻿var cartItem;
-async function AddToCart(movie) {
+function AddToCart(movie) {
     let url = window.location.href
     let userID = url.split("/")[4];
     if (typeof userID === "undefined" || userID.trim() === "") {
@@ -10,22 +10,17 @@ async function AddToCart(movie) {
         }, 1500)
         return;
     }
-
-    let CartID = await getCartID(userID);
     let itemId = movie.movieId;
     let title = movie.title;
     let poster = movie.poster;
     let generatedDate = new Date();
     let unitCost = movie.price;
-    cartItem = { itemId, CartID, title, poster, generatedDate, unitCost };
-    
-   
+    let cartID = 0;
+    cartItem = { itemId, cartID, title, poster, generatedDate, unitCost };
+    console.log(cartItem, "cartItem")
+    $("#cartItems").val(JSON.stringify(cartItem))
+    console.log($("#cartItems").val())
 }
 
-$(document).ready(function () {
-    console.log(cartItem, "cartItem")
-    $("#cartItems").val("hello")
-    console.log($("#cartItems").val())
-})
 
 

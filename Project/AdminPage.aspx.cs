@@ -30,8 +30,6 @@ namespace Project
                 else
                 {
                     Response.Redirect("/Home");
-
-                    
                 }
                 getResolution();
             }
@@ -110,7 +108,7 @@ namespace Project
             Admin admin = new Admin();
             string response = admin.Movie.AddMovie(newMovie);
             ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString(),
-                  "AddMovieResponse('" + response + "');", true);
+                  "AlertMsg('" + response + "');", true);
         }
 
     }
