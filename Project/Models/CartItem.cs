@@ -9,7 +9,6 @@ namespace Project.Models
     public class CartItem
     {
         public int itemId { get; set; }
-
         private int cartID { get; set; }
         public string title { get; set; }
         public string poster { get; set; }
@@ -64,6 +63,23 @@ namespace Project.Models
                 cartBL.RemoveCartItem(cartItemID);
 
                 return "item removed successfully!";
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in LogInPage due to "
+                   + exception.Message, exception.InnerException);
+            }
+        }
+
+        public List<CartItem> GetCartItems(int cartID)
+        {
+            try
+            {
+                BL cartBL = new BL();
+                List<CartItem> cartItems = cartBL.GetCartItems(cartID);
+
+                return cartItems;
             }
             catch (Exception exception)
             {

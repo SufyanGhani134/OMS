@@ -47,16 +47,15 @@ namespace Project
                 }
                 
            }
-            else
+           else
             {
                 CartItem item = JsonConvert.DeserializeObject<CartItem>(cartItems.Value);
                 if (item != null)
                 {
-                    CartItem cartItem = new CartItem();
                     User user = new User();
                     User loggedUser = (User)Session["loggedUser"];
                     item.CartID = user.cart.GetCartId(loggedUser.UserID);
-                    string response = cartItem.AddCartItem(item);
+                    string response = user.cart.AddToCart(item);
                     ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString(),
                   "AlertMsg('" + response + "');", true);
                 }
@@ -67,22 +66,9 @@ namespace Project
         [WebMethod(EnableSession = true)]
         public static int UserLogIn(string Email, string Password)
         {
-            try
-            {
-                BL userBL = new BL();
-                int response = userBL.UserLogIn(Email, Password);
-                if (response != 0)
-                {
-                    HttpContext.Current.Session["IsLoggedIn"] = response;
-                }
-                return response;
-            }
-            catch (Exception exception)
-            {
-                throw new Exception("An exception of type " + exception.GetType().ToString()
-                   + " is encountered in LogInPage due to "
-                   + exception.Message, exception.InnerException);
-            }
+            User user = new User();
+            int response = user.UserLogIn(Email, Password);
+            return response;
         }
 
 
@@ -90,59 +76,32 @@ namespace Project
         [ScriptMethod(UseHttpGet = true)]
         public static List<Object> GetAllMovies()
         {
-            try
-            {
-                BL movieBL = new BL();
-                List<Movie> movies = movieBL.GetAllMovies();
-                List<Object> response = new List<Object>();
-                foreach (Movie movie in movies)
-                {
-                    response.Add((Object)movie);
-                }
-                return response;
-            }
-            catch (Exception exception)
-            {
-                throw new Exception("An exception of type " + exception.GetType().ToString()
-                   + " is encountered in UserPage due to "
-                   + exception.Message, exception.InnerException);
-            }
+             Movie movieObj = new Movie();
+             List<Movie> movies = movieObj.GetAllMovies();
+             List<Object> response = new List<Object>();
+             foreach (Movie movie in movies)
+             {
+                  response.Add((Object)movie);
+             }
+             return response;
         }
 
         [WebMethod]
         [ScriptMethod(UseHttpGet = true)]
         public static int GetCartId(int userID)
         {
-            try
-            {
-                BL cartBL = new BL();
-                int cartID = cartBL.GetCartId(userID);
-                return cartID;
-            }
-            catch (Exception exception)
-            {
-                throw new Exception("An exception of type " + exception.GetType().ToString()
-                   + " is encountered in UserPage due to "
-                   + exception.Message, exception.InnerException);
-            }
+              User userObj = new User();
+              int cartID = userObj.cart.GetCartId(userID);
+              return cartID;
         }
 
 
         [WebMethod]
         public static string AddSearchHistory(int userID, List<string> genres)
         {
-            try
-            {
-                BL suggestionBL = new BL();
-                string response = suggestionBL.AddSearchHistory(userID, genres);
-                return response;
-            }
-            catch (Exception exception)
-            {
-                throw new Exception("An exception of type " + exception.GetType().ToString()
-                   + " is encountered in AddSearch due to "
-                   + exception.Message, exception.InnerException);
-            }
+             User userObj= new User();
+             string response = userObj.AddSearchHistory(userID, genres);
+             return response;
         }
 
         

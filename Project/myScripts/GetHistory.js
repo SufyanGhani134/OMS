@@ -21,9 +21,10 @@
                 dataType: "json",
                 success: function (response) {
                     console.log(response.d)
+                    
                     response.d.forEach((item) => {
                         if (item.isCheck) {
-                            cartItems.push(item)
+                            cartItems.pop(item)
                         }
                     })
 
@@ -68,8 +69,6 @@
             })
         }
         $("#checkOutBtn").html("Check out (" + totalCost + ")");
-
-
     }
 
     

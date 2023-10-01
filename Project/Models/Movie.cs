@@ -48,5 +48,36 @@ namespace Project.Models
             }
         }
 
+        public List<Movie> GetAllMovies()
+        {
+            try
+            {
+                BL movieBL = new BL();
+                List<Movie> movies = movieBL.GetAllMovies();
+                return movies;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in UserPage due to "
+                   + exception.Message, exception.InnerException);
+            }
+        }
+
+        public List<Movie> GetSuggestMovies(int userID)
+        {
+            try
+            {
+                BL movieBL = new BL();
+                List<Movie> movies = movieBL.GetSuggestMovies(userID);
+                return movies;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in UserPage due to "
+                   + exception.Message, exception.InnerException);
+            }
+        }
     }
 }

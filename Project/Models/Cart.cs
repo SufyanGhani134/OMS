@@ -11,10 +11,20 @@ namespace Project.Models
         public int cartID { get; set; }
 
         public int userID { get; set; }
-        public List<Movie> product { get; set; }
         public float totalCost { get; set; }
         public DateTime generatedDate { get; set; }
+        public List<CartItem> CartItems { get; set; }
 
+        public Cart()
+        {
+            CartItems = new List<CartItem>();
+        }
+
+        public string AddToCart(CartItem item)
+        {
+            string response = item.AddCartItem(item);
+            return response;
+        }
         public int GetCartId(int userID)
         {
             try

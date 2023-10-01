@@ -33,23 +33,14 @@ namespace Project
         [ScriptMethod(UseHttpGet = true)]
         public static List<Object> GetSuggestMovies(int userID)
         {
-            try
+            Movie movieObj = new Movie();
+            List<Movie> movies = movieObj.GetSuggestMovies(userID);
+            List<Object> response = new List<Object>();
+            foreach (Movie movie in movies)
             {
-                BL movieBL = new BL();
-                List<Movie> movies = movieBL.GetSuggestMovies(userID);
-                List<Object> response = new List<Object>();
-                foreach (Movie movie in movies)
-                {
-                    response.Add((Object)movie);
-                }
-                return response;
+                response.Add((Object)movie);
             }
-            catch (Exception exception)
-            {
-                throw new Exception("An exception of type " + exception.GetType().ToString()
-                   + " is encountered in UserPage due to "
-                   + exception.Message, exception.InnerException);
-            }
+            return response;
         }
     }
 }

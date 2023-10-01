@@ -48,12 +48,12 @@ namespace Project.Models
         }
 
 
-        public int UserLogIn(string Email, string Password)
+        public int UserLogIn(string email, string password)
         {
             try
             {
                 BL userBL = new BL();
-                int response = userBL.UserLogIn(Email, Password);
+                int response = userBL.UserLogIn(email, password);
                 return response;
             }
             catch (Exception exception)
@@ -98,6 +98,22 @@ namespace Project.Models
                    + exception.Message, exception.InnerException);
             }
 
+        }
+
+        public string AddSearchHistory(int userID, List<string> genres)
+        {
+            try
+            {
+                BL suggestionBL = new BL();
+                string response = suggestionBL.AddSearchHistory(userID, genres);
+                return response;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in AddSearch due to "
+                   + exception.Message, exception.InnerException);
+            }
         }
     }
 }

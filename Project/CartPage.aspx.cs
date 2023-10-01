@@ -49,42 +49,22 @@ namespace Project
         [ScriptMethod(UseHttpGet = true)]
         public static List<Object> GetCartItems(int cartID)
         {
-            try
-            {
-                BL cartBL = new BL();
-                List<CartItem> cartItems = cartBL.GetCartItems(cartID);
-                List<Object> response = new List<Object>();
-                foreach (CartItem item in cartItems)
-                {
-                    response.Add((Object)item);
-                }
-
-                return response;
-            }
-            catch (Exception exception)
-            {
-                throw new Exception("An exception of type " + exception.GetType().ToString()
-                   + " is encountered in LogInPage due to "
-                   + exception.Message, exception.InnerException);
-            }
+             CartItem cartItemObj = new CartItem();
+             List<CartItem> cartItems = cartItemObj.GetCartItems(cartID);
+             List<Object> response = new List<Object>();
+             foreach (CartItem item in cartItems)
+             {
+                 response.Add((Object)item);
+             }
+             return response;
         }
 
         [WebMethod]
         public static string UpdateCart(int cartID, float totalCost)
         {
-            try
-            {
-                BL cartBL = new BL();
-                string response = cartBL.UpdateCart(cartID, totalCost);
-
-                return response;
-            }
-            catch (Exception exception)
-            {
-                throw new Exception("An exception of type " + exception.GetType().ToString()
-                   + " is encountered in LogInPage due to "
-                   + exception.Message, exception.InnerException);
-            }
+             User userObj = new User();
+             string response = userObj.cart.UpdateCart(cartID, totalCost);
+             return response;
         }
 
         
