@@ -24,6 +24,15 @@ namespace Project
         protected global::System.Web.UI.WebControls.TextBox fname;
 
         /// <summary>
+        /// fnameValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator fnameValidator;
+
+        /// <summary>
         /// lname control.
         /// </summary>
         /// <remarks>
@@ -31,6 +40,15 @@ namespace Project
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox lname;
+
+        /// <summary>
+        /// lnameValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator lnameValidator;
 
         /// <summary>
         /// dob control.
@@ -51,6 +69,15 @@ namespace Project
         protected global::System.Web.UI.WebControls.TextBox email;
 
         /// <summary>
+        /// emailValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator emailValidator;
+
+        /// <summary>
         /// password control.
         /// </summary>
         /// <remarks>
@@ -60,6 +87,15 @@ namespace Project
         protected global::System.Web.UI.WebControls.TextBox password;
 
         /// <summary>
+        /// passwordValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator passwordValidator;
+
+        /// <summary>
         /// confirmPassword control.
         /// </summary>
         /// <remarks>
@@ -67,6 +103,15 @@ namespace Project
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox confirmPassword;
+
+        /// <summary>
+        /// cmpPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator cmpPassword;
 
         /// <summary>
         /// SignUpBtn control.

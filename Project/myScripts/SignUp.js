@@ -2,7 +2,27 @@
     var currentDate = new Date().toISOString().split("T")[0];
     $("#dob").attr("max", currentDate);
 
+
+    $("#fname").on('keyup', function () {
+        ValidatorValidate($('#fnameValidator')[0]);
+    })
+    $("#lname").on('keyup', function () {
+        ValidatorValidate($('#lnameValidator')[0]);
+    })
+
+    $("#email").on('keyup', function () {
+        ValidatorValidate($('#emailValidator')[0]);
+    })
+    $("#password").on('keyup', function () {
+        ValidatorValidate($('#passwordValidator')[0]);
+    })
+
+    $("#confirmPassword").on('keyup', function () {
+        ValidatorValidate($('#cmpPassword')[0]);
+    })
+
     $("#SignUpBtn").click(validation);
+
     function validation() {
         let isValid = true;
 
@@ -47,10 +67,10 @@ function ShowAlert(isValid) {
         setTimeout(() => {
             $("#Alert").hide();
         }, 1500);
+       
+    } else if (isValid === "True") {
         window.onload = function () {
             $("#logInModal").modal('show');
         };
-    } else if (isValid === "True") {
-        $("#logInModal").modal('show');
     }
 }

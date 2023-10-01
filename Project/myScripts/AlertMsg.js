@@ -9,10 +9,14 @@
      }, 1500)
 }
 
-function logInAlert(msg) {
+function logInAlert() {
+    alert("dcbec")
+    console.log("Invalid")
     $("#logInAlert").show();
     $("#logInAlert").text(msg);
     setTimeout(() => {
         $("#logInAlert").hide();
     }, 1500)
+
+    return false;
 }

@@ -105,13 +105,13 @@ namespace Project
         protected global::System.Web.UI.WebControls.TextBox Password;
 
         /// <summary>
-        /// LoggingBtn control.
+        /// LogBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button LoggingBtn;
+        protected global::System.Web.UI.HtmlControls.HtmlInputButton LogBtn;
 
         /// <summary>
         /// MainContent control.

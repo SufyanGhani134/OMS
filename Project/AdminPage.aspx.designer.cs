@@ -33,6 +33,15 @@ namespace Project
         protected global::System.Web.UI.WebControls.TextBox movieTitle;
 
         /// <summary>
+        /// titleValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator titleValidator;
+
+        /// <summary>
         /// releaseYear control.
         /// </summary>
         /// <remarks>
@@ -40,6 +49,15 @@ namespace Project
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox releaseYear;
+
+        /// <summary>
+        /// yearValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator yearValidator;
 
         /// <summary>
         /// ResolutionList control.
@@ -60,6 +78,15 @@ namespace Project
         protected global::System.Web.UI.WebControls.TextBox hrs;
 
         /// <summary>
+        /// hrsValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator hrsValidator;
+
+        /// <summary>
         /// mins control.
         /// </summary>
         /// <remarks>
@@ -69,6 +96,15 @@ namespace Project
         protected global::System.Web.UI.WebControls.TextBox mins;
 
         /// <summary>
+        /// minsValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator minsValidator;
+
+        /// <summary>
         /// rating control.
         /// </summary>
         /// <remarks>
@@ -76,6 +112,15 @@ namespace Project
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox rating;
+
+        /// <summary>
+        /// rateValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator rateValidator;
 
         /// <summary>
         /// description control.
@@ -121,6 +166,15 @@ namespace Project
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox price;
+
+        /// <summary>
+        /// priceValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator priceValidator;
 
         /// <summary>
         /// addMovie control.

@@ -77,7 +77,7 @@
                         Log In
                     </button>
                     <asp:Button runat="server" type="button" class="btn btn-light"
-                        id="logOutBtn" visible="false" Text="Log Out" OnClick="logOutBtn_Click"></asp:Button>
+                        id="logOutBtn" visible="false" Text="Log Out" OnClick="logOutBtn_Click" CausesValidation="false"></asp:Button>
                 </div>
             </div>
         </nav>
@@ -108,8 +108,7 @@
                     </div>
                     <div class="modal-footer d-flex justify-content-end px-5 py-3">
                         <button type="button" class="btn btn-secondary mx-2" data-bs-dismiss="modal">Close</button>
-                        <asp:Button runat="server" type="button" class="btn btn-primary" ID="LoggingBtn" OnClick="LoggingBtn_Click" Text="Log In">
-                        </asp:Button>
+                        <input runat="server" type="button" class="btn btn-primary" ID="LogBtn" onclick="logInAndSubmit()" value="Log In"/>
                     </div>
                 </div>
         </div>
@@ -129,6 +128,8 @@
         <%: Scripts.Render("~/Scripts/bootstrap.js") %>
     </asp:PlaceHolder>
     <script src='<%=ResolveClientUrl("~/myScripts/navLinks.js?v=1.2") %>' 
+    type="text/javascript"></script>
+    <script src='<%=ResolveClientUrl("~/myScripts/LogIn.js") %>' 
     type="text/javascript"></script>
 <%--    <script src='<%=ResolveClientUrl("~/myScripts/LogIn.js?v=1") %>' 
     type="text/javascript"></script>--%>

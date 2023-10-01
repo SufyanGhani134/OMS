@@ -64,7 +64,26 @@ namespace Project
         }
 
 
-
+        [WebMethod(EnableSession = true)]
+        public static int UserLogIn(string Email, string Password)
+        {
+            try
+            {
+                BL userBL = new BL();
+                int response = userBL.UserLogIn(Email, Password);
+                if (response != 0)
+                {
+                    HttpContext.Current.Session["IsLoggedIn"] = response;
+                }
+                return response;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception("An exception of type " + exception.GetType().ToString()
+                   + " is encountered in LogInPage due to "
+                   + exception.Message, exception.InnerException);
+            }
+        }
 
 
         [WebMethod]

@@ -8,12 +8,24 @@
                 <label for="fname">First Name</label>
                 <asp:TextBox runat="server" type="text" class="form-control" id="fname" placeholder="First Name">
                 </asp:TextBox>
+                <asp:RegularExpressionValidator id="fnameValidator" 
+                     ControlToValidate="fname"
+                     ValidationExpression="^[a-zA-Z]+$"
+                     Display="Dynamic" ForeColor="red"
+                     ErrorMessage="*Alphabets only"
+                     runat="server"/>
             </div>
 
             <div class="form-group inputGroup">
                 <label for="lname">Last Name</label>
                 <asp:TextBox runat="server" type="text" class="form-control" id="lname" placeholder="Last Name">
                 </asp:TextBox>
+                <asp:RegularExpressionValidator id="lnameValidator" 
+                     ControlToValidate="lname"
+                     ValidationExpression="^[a-zA-Z]+$"
+                     Display="Dynamic" ForeColor="red"
+                     ErrorMessage="*Alphabets only"
+                     runat="server"/>
             </div>
         </div>
         
@@ -28,6 +40,13 @@
                 <label for="email">Email</label>
                 <asp:TextBox runat="server" type="email" class="form-control" id="email" placeholder="Enter your Email">
                     </asp:TextBox>
+                <asp:RegularExpressionValidator id="emailValidator" 
+                     ControlToValidate="email"
+                     ValidationExpression="^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$"
+                     Display="Dynamic" ForeColor="red"
+                     ErrorMessage="* email must be of format abc@example.com"
+                     runat="server"/>
+
             </div>
         </div>
 
@@ -36,12 +55,21 @@
                 <label for="password">Password</label>
                 <asp:TextBox runat="server" type="password" class="form-control" id="password" placeholder="Password">
                     </asp:TextBox>
+                 <asp:RegularExpressionValidator id="passwordValidator" 
+                     ControlToValidate="password"
+                     ValidationExpression="^.{8,}$"
+                     Display="Dynamic" ForeColor="red"
+                     ErrorMessage="* password must be atleast 8 characters"
+                     runat="server"/>
             </div>
 
             <div class="form-group inputGroup">
                 <label for="confirmPassword">Confirm Password</label>
                 <asp:TextBox runat="server" type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password">
                     </asp:TextBox>
+                <asp:CompareValidator ID="cmpPassword" runat="server" ControlToCompare="password" 
+                ControlToValidate="confirmPassword" Operator="Equal" 
+                    ErrorMessage="* Passwords must match" ForeColor="red"></asp:CompareValidator>
             </div>
          </div>
         <div class="w-75 p-3">
@@ -54,7 +82,7 @@
             </asp:Button>
         </div>
      </div>
-    <script src="myScripts/SignUp.js?v=1.3"></script>
+    <script src="myScripts/SignUp.js?v=1.4"></script>
 
 
 </asp:Content>

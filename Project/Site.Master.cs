@@ -14,10 +14,26 @@ namespace Project
 {
     public partial class SiteMaster : MasterPage
     {
-        public string password { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            if (IsPostBack && Page.Request.Params.Get("__EVENTTARGET") == "LogBtn")
+            {
+                    string email = Email.Text;
+                    string password = Password.Text;
+                    User user = new User();
+                    int response = user.UserLogIn(email, password);
+                    User loggedUser = user.GetUser(response);
+                    Session["loggedUser"] = loggedUser;
+                    if (loggedUser.Status == "Admin")
+                    {
+                        Response.Redirect("/Admin/" + response + "/Home");
+                    }
+                    else
+                    {
+                        Response.Redirect("/UserPage/" + response + "/Home");
+                    }
+                            
+            }
         }
         public string CartCount
         {
@@ -39,34 +55,6 @@ namespace Project
         {
             Session["loggedUser"] = null;
             Response.Redirect("/");
-        }
-
-        protected void LoggingBtn_Click(object sender, EventArgs e)
-        {
-            string email = Email.Text;
-            string password = Password.Text;
-            User user = new User();
-            int response = user.UserLogIn(email, password);
-            if(response != 0) 
-            {
-                User loggedUser = user.GetUser(response);
-                Session["loggedUser"] = loggedUser;
-                if(loggedUser.Status == "Admin")
-                {
-                    Response.Redirect("/Admin/" + response + "/Home");
-
-                }
-                else
-                {
-                    Response.Redirect("/UserPage/" + response + "/Home");
-                }
-            }
-            else
-            {
-                string msg = "Invalid Email or Password!";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), Guid.NewGuid().ToString(),
-                  "logInAlert("+ msg + ")", true);
-            }
         }
     }
 }

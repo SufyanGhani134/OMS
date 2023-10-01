@@ -1,4 +1,28 @@
 ﻿$(document).ready(function () {
+
+    $("#movieTitle").on('focus', function () {
+        ValidatorValidate($("#titleValidator")[0]);
+    })
+
+    $("#releseYear").on('focus', function () {
+        ValidatorValidate($("#yearValidator")[0]);
+    })
+
+    $("#hrs").on('focus', function () {
+        ValidatorValidate($("#hrsValidator")[0]);
+    })
+
+    $("#mins").on('focus', function () {
+        ValidatorValidate($("#minsValidator")[0]);
+    })
+
+    $("#ratings").on('focus', function () {
+        ValidatorValidate($("#rateValidator")[0]);
+    })
+
+    $("#price").on('focus', function () {
+        ValidatorValidate($("#priceValidator")[0]);
+    })
     
     $.ajax({
         type: "GET",
